@@ -5,11 +5,10 @@ const newsItems = [
   { title: "Kerala CM Inaugurates 'Norka Care' Health Insurance Scheme for Non-Resident Malayalis", link: "https://timesofindia.indiatimes.com/business/india-business/kerala-cm-inaugurates-norka-care-a-comprehensive-health-and-accident-insurance-scheme-for-non-resident-malayalis/articleshow/124148777.cms" },
   { title: "Migrant Labourers Form Majority of Workforce in Kerala Marine Fisheries Sector", link: "https://timesofindia.indiatimes.com/city/kochi/migrant-labourers-form-majority-of-workforce-in-kerala-marine-fisheries-sector-study-finds/articleshow/123551411.cms" },
   { title: "Mandatory Health Screening for Migrant Workers in Udupi District", link: "https://timesofindia.indiatimes.com/city/mangaluru/mandatory-health-screening-for-migrant-workers-health-dept/articleshow/121322695.cms" },
-  { title: "Kerala Health Dept Launches Mobile Clinics for Migrant Workers", link: "https://www.newindianexpress.com/states/kerala/2025/oct/05/mobile-health-clinics-for-migrant-workers-2355001.html" },
-  { title: "Migrant Workers Receive Free Covid-19 Vaccination in Thiruvananthapuram", link: "https://www.thehindu.com/news/national/kerala/free-covid19-vaccination-for-migrant-workers/article67123456.ece" },
-  { title: "Kerala Launches AI-Powered Health Dashboard to Track Migrant Worker Health", link: "https://timesofindia.indiatimes.com/city/kochi/ai-dashboard-to-monitor-migrant-health-launched-in-kerala/articleshow/124321234.cms" },
-  { title: "Emergency Medical Response Teams Deployed for Migrant Communities During Floods", link: "https://www.onmanorama.com/news/kerala/2025/emergency-medical-teams-flood-relief.html" },
-  { title: "Kerala to Conduct Annual Health Audit for Migrant Workers in Major Industries", link: "https://www.timesofindia.indiatimes.com/city/kochi/annual-health-audit-for-migrant-workers/articleshow/124328432.cms" },
+  { title: "Kerala Clinic For Migrant Workers Featured In WHO List", link: "https://www.themigrationstory.com/post/kerala-clinic-for-migrant-workers-featured-in-who-list" },
+  { title: "Kerala Launches AI-Powered Health Dashboard to Track Migrant Worker Health", link: "https://www.digitalhealthnews.com/kerala-health-department-implements-ai-tools-for-patient-care-early-diagnosis" },
+  { title: "Only 9.8% of migrant workers in Kerala have health coverage", link: "https://www.newindianexpress.com/states/kerala/2025/Sep/26/only-98-of-migrant-workers-in-kerala-have-health-coverage-finds-mahatma-gandhi-university-study" },
+  { title: "migrant Workers in Kerala prefer Modern Medicine", link: "https://timesofindia.indiatimes.com/city/kochi/migrant-workers-in-kerala-prefer-modern-medicine/articleshow/121719130.cms" },
 ];
 
 const NewsTicker: React.FC = () => {
