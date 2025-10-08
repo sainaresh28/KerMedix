@@ -15,7 +15,6 @@ import {
   ArrowRight,
   FileText
 } from "lucide-react";
-import heroImage from "@/assets/hero-healthcare.jpg";
 import digitalRecordsImg from "@/assets/digital-records.jpg";
 import healthScreeningImg from "@/assets/health-screening.jpg";
 import telemedicineImg from "@/assets/telemedicine.jpg";
@@ -141,7 +140,6 @@ const Home = () => {
           loop
           muted
           playsInline
-          poster={heroImage}
           className="absolute inset-0 w-full h-full object-cover brightness-125"
         >
           <source src={backVideo} type="video/mp4" />
