@@ -73,23 +73,14 @@ const Home = () => {
 
   const [showMainContent, setShowMainContent] = useState(false);
   const [fadeOutIntro, setFadeOutIntro] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const introRef = useRef<HTMLVideoElement | null>(null);
-
-  // Detect mobile
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const handleVideoEnd = () => {
     setFadeOutIntro(true);
     setTimeout(() => setShowMainContent(true), 800);
   };
 
-  // fallback to ensure the page doesn’t hang if intro is slow
+ 
   useEffect(() => {
     const fallback = setTimeout(() => {
       if (!showMainContent) handleVideoEnd();
@@ -134,16 +125,12 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* ---------------------- HERO SECTION ---------------------- */}
-      <section
-        className={`relative bg-black text-white overflow-hidden ${
-          showMainContent ? "h-screen" : isMobile ? "h-auto" : "h-screen"
-        }`}
-      >
+      <section className="relative bg-black text-white h-screen overflow-hidden">
         {/* Intro Video */}
         <AnimatePresence>
           {!showMainContent && (
             <motion.div
-              className="absolute inset-0 z-20 flex justify-center items-center"
+              className="absolute inset-0 z-20"
               initial={{ opacity: 1 }}
               animate={{ opacity: fadeOutIntro ? 0 : 1 }}
               exit={{ opacity: 0 }}
@@ -156,9 +143,7 @@ const Home = () => {
                 muted
                 playsInline
                 onEnded={handleVideoEnd}
-                className={`${
-                  isMobile ? "w-auto max-w-full h-auto max-h-[80vh]" : "w-full h-full object-cover"
-                }`}
+                className="absolute inset-0 w-full h-full object-cover"
                 preload="auto"
               />
               <div className="absolute inset-0 bg-black/20" />
@@ -210,7 +195,7 @@ const Home = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              Digital Health Records
+              Kerala Digital Health Records
             </motion.h1>
 
             <motion.p
