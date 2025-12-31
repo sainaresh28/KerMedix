@@ -33,30 +33,33 @@ const heroCss = `
   overflow:hidden;
 }
 
-/* Wrapper adds padding + rounded edges */
+/* ================= STATIC BACKGROUND ================= */
 .hero-bg-wrapper{
   position:absolute;
   inset:0;
   padding:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* Static bg image */
+/* Desktop static bg — SAME SIZE AS BEFORE */
 .hero-bg{
   width:100%;
-  height:100%;
+  height:78%;
   border-radius:26px;
   object-fit:cover;
   overflow:hidden;
 }
 
-/* Animation container */
+/* ================= ANIMATION LAYER ================= */
 .hero-anim-area{
   position:relative;
   width:100%;
   height:100vh;
 }
 
-/* Mask animated image */
+/* Mask animated image (unchanged desktop behavior) */
 .hero-anim-wrapper{
   position:absolute;
   inset:0;
@@ -82,7 +85,74 @@ const heroCss = `
 .big-word{
   opacity:.6;
 }
+
+
+/* ================== TABLET ================== */
+@media (max-width: 1024px){
+
+  .hero-bg-wrapper{
+    padding:26px;
+  }
+
+  .hero-bg{
+    height:82%;
+    border-radius:22px;
+  }
+
+  .hero-anim-wrapper{
+    width:82vw;
+    height:60vh;
+    rotate:12deg;
+    border-radius:22px;
+  }
+}
+
+
+/* ================== MOBILE ================== */
+@media (max-width: 768px){
+
+  .hero-bg-wrapper{
+    padding:14px;
+  }
+
+  .hero-bg{
+    height:88%;
+    border-radius:16px;
+  }
+
+  .hero-anim-wrapper{
+    width:95vw;
+    height:48vh;
+    rotate:10deg;
+    border-radius:16px;
+  }
+}
+
+
+/* ============= SMALL MOBILE ============= */
+@media (max-width: 480px){
+
+  .hero-bg-wrapper{
+    padding:10px;
+  }
+
+  .hero-bg{
+    height:90%;
+    border-radius:14px;
+  }
+
+  .hero-anim-wrapper{
+    width:100vw;
+    height:44vh;
+    rotate:8deg;
+    border-radius:14px;
+  }
+}
+
 `;
+
+
+
 
 
 // ================= TEXT SCRAMBLE =================
