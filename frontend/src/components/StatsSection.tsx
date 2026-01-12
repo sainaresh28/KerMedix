@@ -17,8 +17,6 @@ const StatsSection = () => {
   ];
 
   useEffect(() => {
-    if (!ref.current) return;
-
     const ctx = gsap.context(() => {
       gsap.set(".letter-wrapper", { y: 400 });
       gsap.set(".item-copy-wrapper p", { y: 50 });
@@ -36,11 +34,6 @@ const StatsSection = () => {
         }, "<")
         .to(".header-item-1", { left: 0, scale: 1 })
         .to(".header-item-2", { right: 0, scale: 1 }, "<")
-
-        // 👉 POST JOIN GAP
-        .to(".header-item-1", { x: -40, duration: 0.6 }, ">")
-        .to(".header-item-2", { x: 40, duration: 0.6 }, "<")
-
         .to(".item-main img", { scale: 1 }, "<")
         .to(".item-side img", {
           clipPath: "polygon(0% 100%,100% 100%,100% 0%,0% 0%)",
@@ -50,12 +43,9 @@ const StatsSection = () => {
         .to(".item-copy-wrapper p", { y: 0, stagger: 0.05 }, "<");
 
       ScrollTrigger.create({
-        trigger: ref.current,
+        trigger: ".stats-section",
         start: "top 70%",
-        end: "bottom 30%",
         onEnter: () => tl.restart(),
-        onEnterBack: () => tl.restart(),
-        onLeave: () => tl.pause(0),
         onLeaveBack: () => tl.pause(0),
       });
     }, ref);
@@ -67,6 +57,7 @@ const StatsSection = () => {
     <section ref={ref} className="stats-section">
       <style>{css}</style>
 
+      {/* TOP TEXT */}
       <div className="top-text">
         <h2>Making Healthcare Accessible</h2>
       </div>
