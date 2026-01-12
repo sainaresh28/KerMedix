@@ -1,10 +1,15 @@
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StatsSection from "@/components/StatsSection";
 import FeatureShowcase from "@/components/FeatureShowcase";
 import TestimonialSection from "@/components/TestimonialSection";
+import InteractiveMap from "@/components/InteractiveMap";
 import NewsTicker from "@/components/NewsTicker";
+
 import { useTranslation } from "react-i18next";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Heart, Users, Clock, CheckCircle, FileText } from "lucide-react";
@@ -17,184 +22,198 @@ import vaccinationImg from "@/assets/vaccination.jpg";
 import heroBackground from "@/assets/1635203.jpg";
 import heroAnimated from "@/assets/facility1.png";
 
-import React, { useState, useEffect, useRef } from "react";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-
-
-// ================= HERO CSS =================
+/* ================= HERO CSS ================= */
 const heroCss = `
 .hero-section{
-  position: relative;
+  position:relative;
   width:100%;
-  height:100vh;
   overflow:hidden;
 }
 
-/* ================= STATIC BACKGROUND ================= */
 .hero-bg-wrapper{
   position:absolute;
   inset:0;
-  padding:40px;
+  padding:20px;
   display:flex;
   align-items:center;
   justify-content:center;
 }
 
-/* Desktop static bg — SAME SIZE AS BEFORE */
 .hero-bg{
   width:100%;
-  height:78%;
+  height:90%;
   border-radius:26px;
   object-fit:cover;
-  overflow:hidden;
 }
 
-/* ================= ANIMATION LAYER ================= */
-.hero-anim-area{
-  position:relative;
-  width:100%;
-  height:100vh;
-}
-
-/* Mask animated image (unchanged desktop behavior) */
 .hero-anim-wrapper{
   position:absolute;
   inset:0;
   margin:auto;
-  width:70vw;
-  height:70vh;
-  rotate:15deg;
-  clip-path:polygon(37.5% 20%,62.5% 20%,62.5% 80%,37.5% 80%);
-  scale:1.2;
-  opacity:0;
-  z-index:5;
-  border-radius:26px;
+  border-radius:36px;
   overflow:hidden;
+  z-index:5;
 }
 
 .hero-anim-wrapper img{
   width:100%;
   height:100%;
   object-fit:cover;
-  border-radius:inherit;
 }
 
-.big-word{
-  opacity:.6;
+.kermedix-title{
+  font-family: Inter, Poppins, system-ui, sans-serif;
+  font-weight:900;
+  letter-spacing:-0.08em;
+  color:rgba(255,255,255,0.65);
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.15),
+    0 2px 8px rgba(0,0,0,0.35);
+  pointer-events:none;
 }
 
 
-/* ================== TABLET ================== */
-@media (max-width: 1024px){
-
-  .hero-bg-wrapper{
-    padding:26px;
-  }
-
-  .hero-bg{
-    height:82%;
-    border-radius:22px;
-  }
-
+@media (max-width:768px){
   .hero-anim-wrapper{
-    width:82vw;
-    height:60vh;
-    rotate:12deg;
-    border-radius:22px;
-  }
-}
-
-
-/* ================== MOBILE ================== */
-@media (max-width: 768px){
-
-  .hero-bg-wrapper{
-    padding:14px;
-  }
-
-  .hero-bg{
-    height:88%;
-    border-radius:16px;
-  }
-
-  .hero-anim-wrapper{
-    width:95vw;
-    height:48vh;
-    rotate:10deg;
+    width:72vw;
+    height:52vw; 
+    max-height:52vh;
+    aspect-ratio:16/9;
     border-radius:16px;
   }
 }
 
-
-/* ============= SMALL MOBILE ============= */
-@media (max-width: 480px){
-
-  .hero-bg-wrapper{
-    padding:10px;
-  }
-
-  .hero-bg{
-    height:90%;
-    border-radius:14px;
-  }
-
+@media (max-width:480px){
   .hero-anim-wrapper{
-    width:100vw;
-    height:44vh;
-    rotate:8deg;
+    width:88vw;
+    height:84vw; 
+    max-height:50vh;
+    aspect-ratio:16/9;
     border-radius:14px;
   }
 }
-
 `;
 
-
-
-
-
-// ================= TEXT SCRAMBLE =================
+/* ================= TEXT SCRAMBLE ================= */
 const chars = "!<>-_\\/[]{}—=+*^?#________";
-const DecryptedText = ({ text, speed = 30, start = false }: any) => {
+
+const DecryptedText = ({ text, start }: { text: string; start: boolean }) => {
   const [displayed, setDisplayed] = useState("");
 
   useEffect(() => {
     if (!start) return;
     let i = 0;
-    const max = text.length * 2;
-
     const interval = setInterval(() => {
-      const output = text
-        .split("")
-        .map((c: string, index: number) =>
-          index < i / 2 ? c : chars[Math.floor(Math.random() * chars.length)]
-        )
-        .join("");
-
-      setDisplayed(output);
+      setDisplayed(
+        text
+          .split("")
+          .map((c, idx) =>
+            idx < i / 2 ? c : chars[Math.floor(Math.random() * chars.length)]
+          )
+          .join("")
+      );
       i++;
-
-      if (i > max) {
+      if (i > text.length * 2) {
         setDisplayed(text);
         clearInterval(interval);
       }
-    }, speed);
-
+    }, 30);
     return () => clearInterval(interval);
-  }, [text, speed, start]);
+  }, [text, start]);
 
   return <span>{displayed}</span>;
 };
 
+/* ================= HERO ================= */
+const HeroSection = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+
+  const smooth = useSpring(scrollYProgress, {
+    stiffness: 60,
+    damping: 18,
+    mass: 0.6,
+  });
+
+  const imgOpacity = useTransform(smooth, [0, 0.12], [0, 1]);
+  const imgRotate = useTransform(
+    smooth,
+    [0.05, 0.45],
+    isMobile ? [8, 0] : [15, 0]
+  );
+  const imgScale = useTransform(
+    smooth,
+    [0, 0.4],
+    isMobile ? [1.1, 1] : [1.25, 1]
+  );
+
+  const clipPath = useTransform(
+    smooth,
+    [0, 0.38],
+    [
+      "polygon(37.5% 20%,62.5% 20%,62.5% 80%,37.5% 80%)",
+      "polygon(0% 0%,100% 0%,100% 100%,0% 100%)",
+    ]
+  );
+
+  const titleY = useTransform(
+    smooth,
+    [0, 0.6],
+    isMobile ? ["0%", "40%"] : ["0%", "50%"]
+  );
+  const titleScale = useTransform(smooth, [0, 0.4], [1, 0.75]);
+
+  const subtitleOpacity = useTransform(smooth, [0.15, 0.3], [0, 1]);
+
+  return (
+    <section ref={ref} className="hero-section h-[100vh]">
+      <div className="sticky top-0 h-screen overflow-hidden">
+
+        <div className="hero-bg-wrapper">
+          <img src={heroBackground} className="hero-bg" />
+        </div>
+
+        <motion.h1
+          style={{ y: titleY, scale: titleScale }}
+          className="kermedix-title absolute inset-0 flex items-center justify-center text-[18vw]"
+        >
+          KERMEDIX
+        </motion.h1>
+
+        <motion.div
+          style={{ opacity: subtitleOpacity }}
+          className="absolute bottom-[18%] w-full text-center z-20"
+        >
+          <h2 className="text-4xl md:text-6xl font-bold text-white">
+            Kerala Digital Health Records
+          </h2>
+        </motion.div>
+
+        <motion.div
+          className="hero-anim-wrapper"
+          style={{
+            opacity: imgOpacity,
+            rotate: imgRotate,
+            scale: imgScale,
+            clipPath,
+          }}
+        >
+          <img src={heroAnimated} />
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+/* ================= HOME ================= */
 const Home = () => {
-
-  const { t } = useTranslation();
   useScrollAnimation();
-
-
+  useTranslation();
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -203,75 +222,15 @@ const Home = () => {
     return () => document.head.removeChild(style);
   }, []);
 
-
-  // ================= DIFFERENTIATOR  =================
   const keyDifferentiators = [
     "Centralized digital health database",
     "Real-time updates",
     "Strict privacy control",
     "Chronic health tracking",
     "ERP & HRMS Integration",
-    "Powerful analytics & reports"
+    "Powerful analytics & reports",
   ];
 
-  const [visibleDiffs, setVisibleDiffs] = useState(
-    new Array(keyDifferentiators.length).fill(false)
-  );
-
-  const diffRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute("data-index"));
-          if (entry.isIntersecting) {
-            setVisibleDiffs((prev) => {
-              const arr = [...prev];
-              arr[index] = true;
-              return arr;
-            });
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    diffRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-
-  // ================= HERO SCROLL EFFECT =================
-  useEffect(() => {
-    ScrollTrigger.getAll().forEach(t => t.kill());
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".hero-anim-area",
-        start: "top top",
-        end: "+=150%",
-        scrub: true,
-        pin: true,
-        pinSpacing: true   
-      }
-    });
-
-    tl.to(".hero-anim-wrapper", { opacity: 1, duration: 0.2 });
-
-    tl.to(".hero-anim-wrapper", {
-      rotation: 0,
-      clipPath: "polygon(0% 0%,100% 0%,100% 100%,0% 100%)",
-      width: "calc(100% - 80px)",
-      height: "calc(100% - 80px)",
-      scale: 1,
-      ease: "power2.inOut"
-    });
-
-  }, []);
-
-
-  // ================= DATA =================
   const features = [
     { title: "Centralized Digital Recordkeeping", description: "All health interactions recorded securely", image: digitalRecordsImg },
     { title: "Real-time Updates", description: "Instant medical record updates", image: healthScreeningImg },
@@ -286,36 +245,34 @@ const Home = () => {
     { label: "Real-time Updates", value: "24/7", icon: Clock },
   ];
 
+  const [visibleDiffs, setVisibleDiffs] = useState(
+    new Array(keyDifferentiators.length).fill(false)
+  );
+  const diffRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          const i = Number(e.target.getAttribute("data-index"));
+          if (e.isIntersecting) {
+            setVisibleDiffs((p) => {
+              const a = [...p];
+              a[i] = true;
+              return a;
+            });
+          }
+        }),
+      { threshold: 0.3 }
+    );
+
+    diffRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
-
-      {/* ================= HERO ================= */}
-      <section className="hero-section">
-
-        <div className="hero-bg-wrapper">
-          <img src={heroBackground} className="hero-bg" />
-        </div>
-
-        <div className="hero-anim-area">
-          <h1 className="big-word absolute inset-0 flex items-center justify-center text-[18vw] font-extrabold text-white">
-            KERMEDIX
-          </h1>
-
-          <div className="absolute bottom-[18%] w-full text-center z-[20]">
-            <h2 className="text-4xl md:text-6xl font-bold text-white">
-              Kerala Digital Health Records
-            </h2>
-          </div>
-
-          <div className="hero-anim-wrapper">
-            <img src={heroAnimated} />
-          </div>
-        </div>
-      </section>
-
-
-      {/* ================= NEWS ================= */}
+      <HeroSection />
       <NewsTicker />
 
 {/* ================= MAIN CONTENT ================= */}
@@ -447,7 +404,9 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+      
+      <StatsSection />
+      
       {/* Stats */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -474,10 +433,9 @@ const Home = () => {
         </div>
       </section>
 
-   
-      <StatsSection />
       <FeatureShowcase />
       <TestimonialSection />
+      <InteractiveMap />
     </div>
   );
 };
