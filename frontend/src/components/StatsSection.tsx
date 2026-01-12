@@ -371,10 +371,10 @@ const css = `
 
 
 
-/* ================= MOBILE CAROUSEL  ================= */
+/* ================= MOBILE FIX (HEADER + CAROUSEL VISIBILITY) ================= */
 @media (max-width: 768px) {
 
-  /* Allow section to expand */
+  /* Let section grow */
   .stats-section{
     height:auto;
     min-height:100vh;
@@ -382,53 +382,21 @@ const css = `
     padding-bottom:3rem;
   }
 
+  /* Stack content naturally */
   .container{
+    flex-direction:column;
     height:auto;
   }
 
-  /* Horizontal carousel */
-  .items{
-    display:flex;
-    flex-direction:row;
-    overflow-x:auto;
-    overflow-y:visible;
-
-    gap:1rem;
-    padding:1.5rem 1rem;
-
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-  }
-
-  /* Each CARD is a slide (not column) */
-  .items-col{
-    display:contents; 
-  }
-
-  .item,
-  .item-main{
-    flex:0 0 85%;
-    max-width:85%;
-    height:260px;
-
-    top:0;
-    transform:translateZ(0);
-    scroll-snap-align:center;
-  }
-
-  /* Disable hover zoom on touch */
-  .stat-card:hover{
-    transform:none;
-  }
-
-  /* OUR STATS — SAME animation, just resized */
+  /* OUR STATS HEADER — move into normal flow */
   .header{
-    position:relative;
+    position:relative;      /* 🔥 KEY FIX */
     bottom:auto;
-    width:100%;
-    margin-top:1.5rem;
     transform:none;
+    width:100%;
+    margin:1.5rem 0 1rem;
     justify-content:center;
+    opacity:0.35;
   }
 
   .header-item{
@@ -439,14 +407,37 @@ const css = `
     font-size:22vw;
   }
 
-  /* Text sizing */
-  .top-text h2{
-    font-size:2rem;
+  /* Carousel */
+  .items{
+    flex-direction:row;
+    overflow-x:auto;
+    overflow-y:visible;
+    gap:1rem;
+    padding:1rem;
+
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
   }
 
-  .top-text p{
-    font-size:.95rem;
-    padding:0 .5rem;
+  /* Remove column wrapper effect */
+  .items-col{
+    display:contents;
+  }
+
+  /* Each card = slide */
+  .item,
+  .item-main{
+    flex:0 0 85%;
+    max-width:85%;
+    height:260px;
+    top:0;
+    transform:translateZ(0);
+    scroll-snap-align:center;
+  }
+
+  /* Disable hover zoom on touch */
+  .stat-card:hover{
+    transform:none;
   }
 
   /* Hide scrollbar */
@@ -456,7 +447,18 @@ const css = `
   .items{
     scrollbar-width:none;
   }
+
+  /* Text scale */
+  .top-text h2{
+    font-size:2rem;
+  }
+
+  .top-text p{
+    font-size:.95rem;
+    padding:0 .5rem;
+  }
 }
+
 
 
 `;
