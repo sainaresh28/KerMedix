@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Phone, MapPin, Mail, ChevronDown, X } from "lucide-react";
 // import { HoverDropdownMenu } from "@/components/ui/dropdown-menu";
 import { User, Users, Shield, UserPlus} from 'lucide-react';
-import { Stethoscope } from 'lucide-react'; // or use Activity icon if Stethoscope is not available
+import { Stethoscope } from 'lucide-react'; 
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -436,7 +436,7 @@ const orangePortalBtn =
               />
 
               {/* CONTENT */}
-              <div className="relative z-10 max-w-7xl mx-auto px-30 py-30">
+              <div className="relative z-10 max-w-7xl mx-auto px-7 py-14">
 
                 {/* Divider */}
                 <motion.div
