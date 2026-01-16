@@ -14,6 +14,7 @@ import BentoShowcase from "@/components/BentoShowcase";
 import { useTranslation } from "react-i18next";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Heart, Users, Clock, CheckCircle, FileText } from "lucide-react";
+import { useMediaQuery } from "react-responsive";
 
 import digitalRecordsImg from "@/assets/digital-records.jpg";
 import healthScreeningImg from "@/assets/health-screening.jpg";
@@ -21,7 +22,10 @@ import telemedicineImg from "@/assets/telemedicine.jpg";
 import vaccinationImg from "@/assets/vaccination.jpg";
 
 import heroBackground from "@/assets/1635203.jpg";
-import heroAnimated from "@/assets/facility1.png";
+import heroBackground_L from "@/assets/1635203-L.jpg";
+import heroBackground_R from "@/assets/1635203-R.jpg";
+
+import heroAnimated from "@/assets/overlay.png";
 
 /* ================= HERO CSS ================= */
 const heroCss = `
@@ -125,91 +129,144 @@ const DecryptedText = ({ text, start }: { text: string; start: boolean }) => {
   return <span>{displayed}</span>;
 };
 
+
 /* ================= HERO ================= */
+
 const HeroSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
+  /* ---------- MOBILE DETECTION (SSR SAFE) ---------- */
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  /* ---------- SCROLL ---------- */
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
   const smooth = useSpring(scrollYProgress, {
-    stiffness: 60,
-    damping: 18,
-    mass: 0.6,
+    stiffness: 55,
+    damping: 22,
+    mass: 1,
   });
 
-  const imgOpacity = useTransform(smooth, [0, 0.12], [0, 1]);
-  const imgRotate = useTransform(
+  /* ---------- SPLIT ---------- */
+  const split = useTransform(smooth, [0, 0.35], [0, 1]);
+
+  const leftX = useTransform(split, [0, 1], ["0%", "-24.5%"]);
+  const rightX = useTransform(split, [0, 1], ["0%", "24.5%"]);
+
+  const textOpacity = useTransform(split, [0, 0.6], [1, 0]);
+  const textScale = useTransform(split, [0, 0.6], [1, 0.9]);
+
+  /* ---------- CENTER IMAGE ---------- */
+  const centerWidth = useTransform(
     smooth,
-    [0.05, 0.45],
-    isMobile ? [8, 0] : [15, 0]
-  );
-  const imgScale = useTransform(
-    smooth,
-    [0, 0.4],
-    isMobile ? [1.1, 1] : [1.25, 1]
+    [0.4, 0.65],
+    isMobile ? ["0%", "100%"] : ["0%", "50%"]
   );
 
-  const clipPath = useTransform(
-    smooth,
-    [0, 0.38],
-    [
-      "polygon(37.5% 20%,62.5% 20%,62.5% 80%,37.5% 80%)",
-      "polygon(0% 0%,100% 0%,100% 100%,0% 100%)",
-    ]
-  );
+  const centerOpacity = useTransform(smooth, [0.4, 0.5], [0, 1]);
 
-  const titleY = useTransform(
-    smooth,
-    [0, 0.6],
-    isMobile ? ["0%", "40%"] : ["0%", "50%"]
-  );
-  const titleScale = useTransform(smooth, [0, 0.4], [1, 0.75]);
+  /* ---------- FINAL TEXT ---------- */
+  const finalTextOpacity = useTransform(smooth, [0.55, 0.7], [0, 1]);
+  const finalTextY = useTransform(smooth, [0.55, 0.7], ["14%", "0%"]);
 
-  const subtitleOpacity = useTransform(smooth, [0.15, 0.3], [0, 1]);
+  /* ---------- MOBILE SIDE FADE ---------- */
+  const sideOpacity = useTransform(
+    smooth,
+    [0.45, 0.6],
+    isMobile ? [1, 0] : [1, 1]
+  );
 
   return (
-    <section ref={ref} className="hero-section h-[100vh]">
-      <div className="sticky top-0 h-screen overflow-hidden">
+    <section ref={ref} className="relative h-[260vh] bg-[#F9EFE3]">
+      <div className="sticky top-0 h-screen flex items-center justify-center">
+        <div className="relative w-full max-w-[96%] h-[90%]">
+          <div className="relative w-full h-full overflow-hidden rounded-[28px]">
 
-        <div className="hero-bg-wrapper">
-          <img src={heroBackground} className="hero-bg" />
+            {/* LEFT IMAGE */}
+            <motion.div
+              style={{ x: leftX, opacity: sideOpacity }}
+              className="absolute inset-y-0 left-0 w-[50.5%] overflow-hidden rounded-l-[28px]"
+            >
+              <img src={heroBackground_L} className="w-full h-full object-cover" />
+
+              <motion.div
+                style={{ opacity: textOpacity, scale: textScale }}
+                className="absolute inset-0 flex items-center justify-center px-12"
+              >
+                <span className="kermedix-title text-[9vw] whitespace-nowrap">
+                  KERMEDIX
+                </span>
+              </motion.div>
+            </motion.div>
+
+            {/* RIGHT IMAGE */}
+            <motion.div
+              style={{ x: rightX, opacity: sideOpacity }}
+              className="absolute inset-y-0 right-0 w-[50.5%] overflow-hidden rounded-r-[28px]"
+            >
+              <img src={heroBackground_R} className="w-full h-full object-cover" />
+
+              <motion.div
+                style={{ opacity: textOpacity, scale: textScale }}
+                className="absolute inset-0 flex items-center justify-center px-12"
+              >
+                <span className="kermedix-title text-[9vw] whitespace-nowrap">
+                  PLATFORM
+                </span>
+              </motion.div>
+            </motion.div>
+
+            {/* CENTER IMAGE */}
+            <motion.div
+              style={{
+                width: centerWidth,
+                opacity: centerOpacity,
+              }}
+              className="
+                absolute inset-y-0
+                left-1/2 -translate-x-1/2
+                z-20
+                overflow-hidden
+              "
+            >
+              <img src={heroAnimated} className="w-full h-full object-cover" />
+            </motion.div>
+
+            {/* FINAL TEXT */}
+            <motion.div
+              style={{ opacity: finalTextOpacity, y: finalTextY }}
+              className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center pointer-events-none"
+            >
+              <h1 className="kermedix-title text-[18vw] md:text-[12vw] text-white leading-none">
+
+                KERMEDIX
+              </h1>
+
+              <p className="mt-4 text-3xl md:text-5xl font-semibold text-white">
+                Kerala Digital Health Records
+              </p>
+            </motion.div>
+
+          </div>
         </div>
-
-        <motion.h1
-          style={{ y: titleY, scale: titleScale }}
-          className="kermedix-title absolute inset-0 flex items-center justify-center text-[18vw]"
-        >
-          KERMEDIX
-        </motion.h1>
-
-        <motion.div
-          style={{ opacity: subtitleOpacity }}
-          className="absolute bottom-[18%] w-full text-center z-20"
-        >
-          <h2 className="text-4xl md:text-6xl font-bold text-white">
-            Kerala Digital Health Records
-          </h2>
-        </motion.div>
-
-        <motion.div
-          className="hero-anim-wrapper"
-          style={{
-            opacity: imgOpacity,
-            rotate: imgRotate,
-            scale: imgScale,
-            clipPath,
-          }}
-        >
-          <img src={heroAnimated} />
-        </motion.div>
       </div>
     </section>
   );
 };
+
+
+
+
 
 /* ================= HOME ================= */
 const Home = () => {
@@ -272,12 +329,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen" style={{ backgroundColor: "#F9EFE3" }}>
+
       <HeroSection />
       <NewsTicker />
 
 {/* ================= MAIN CONTENT ================= */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20" style={{ backgroundColor: "#F9EFE3" }}>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
@@ -435,7 +494,7 @@ const Home = () => {
       </section>
 
       <FeatureShowcase />
-      <BentoShowcase />
+       <BentoShowcase />
       <TestimonialSection />
       <InteractiveMap />
     </div>
