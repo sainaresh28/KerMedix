@@ -47,7 +47,8 @@ export default function ScrollStackFeatures({
       className="relative h-[340vh] bg-[#F9EFE3]"
     >
       {/* STICKY PIN */}
-      <div className="sticky top-0 h-screen flex items-center justify-center perspective-[1200px]">
+      <div className="sticky top-0 h-screen flex justify-center pt-20 perspective-[1200px]">
+
         <div className="relative w-full max-w-5xl h-[580px]">
           {features.map((feature, index) => {
             const total = features.length;
@@ -62,7 +63,8 @@ export default function ScrollStackFeatures({
               : "#000000";
 
             // MOTION
-            const y = useTransform(smooth, [start, end], [200, 0]);
+            const y =index === 0 ? 0 : useTransform(smooth, [start, end], [200, 0]);
+
             const scale = useTransform(
               smooth,
               [0, start],
