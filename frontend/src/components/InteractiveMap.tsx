@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Card, CardContent } from '@/components/ui/card';
 import { MapPin, Users, Building } from 'lucide-react';
-import KeralaDistrictMap from '@/assets/Kerala-district-Map.png'; // ✅ correct image import
-
+import KeralaDistrictMap from '@/assets/Kerala-district-Map.png'; 
 const InteractiveMap = () => {
   const visibleElements = useScrollAnimation();
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
@@ -26,7 +25,8 @@ const InteractiveMap = () => {
   ];
 
   return (
-    <section className="relative py-20 bg-background overflow-hidden">
+    <section className="relative py-20 overflow-hidden" style={{ backgroundColor: "#F9EFE3" }} >
+
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         {/* Header */}
         <div
