@@ -169,70 +169,87 @@ const TestimonialSection = () => {
           </button>
         </div>
 
-        {/* ================= MOBILE SWIPE SLIDER ================= */}
+       
         
-        <div className="sm:hidden overflow-visible">
-          <motion.div
-            className="flex"
-            drag="x"
-            animate={{ x: -index * 100 + "%" }}
-            transition={{ duration: 0.35, ease: "easeInOut" }}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -80) next();
-              if (info.offset.x > 80) prev();
-            }}
-          >
-            {[...testimonials, testimonials[0]].map((t, i) => (
-              <div
-                key={i}
-                className="min-w-full px-4 flex justify-center"
+        {/* ================= MOBILE SLIDER  ================= */}
+            <div className="sm:hidden">
+              {/* Slider */}
+              <motion.div
+                className="flex"
+                animate={{ x: `-${index * 100}%` }}
+                transition={{ duration: 0.45, ease: "easeInOut" }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -80) next();
+                  if (info.offset.x > 80) prev();
+                }}
               >
-                <motion.div
-                  animate={{
-                    scale: i === index ? 1 : 0.94,
-                    opacity: i === index ? 1 : 0.8,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="relative bg-green-600 text-white rounded-3xl shadow-xl px-6 pt-20 pb-8 w-full max-w-sm"
-                >
-                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-30">
+                {testimonials.map((t, i) => (
                   <div
-                    className="
-                      w-20 h-20
-                      rounded-full
-                      border-[4px] border-white
-                      shadow-[0_10px_25px_rgba(0,0,0,0.35)]
-                      overflow-hidden
-                      bg-gray-200
-                    "
+                    key={i}
+                    className="min-w-full px-4 flex justify-center"
                   >
-                    <img
-                      src={t.image}
-                      alt={t.name}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
+                    <motion.div
+                      animate={{
+                        scale: i === index ? 1 : 0.95,
+                        opacity: i === index ? 1 : 0.85,
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="relative bg-green-600 text-white rounded-3xl
+                                shadow-xl px-6 pt-20 pb-8 w-full max-w-sm"
+                    >
+                      {/* Avatar */}
+                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-10">
+                        <div className="w-20 h-20 rounded-full border-[4px] border-white
+                                        shadow-[0_10px_25px_rgba(0,0,0,0.35)]
+                                        overflow-hidden bg-gray-200">
+                          <img
+                            src={t.image}
+                            alt={t.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+
+                      <Quote className="opacity-80 mb-4" size={24} />
+
+                      <p className="text-sm leading-relaxed mb-6 text-center">
+                        “{t.quote}”
+                      </p>
+
+                      <div className="border-t border-white/30 pt-4 text-sm
+                                      font-semibold text-center">
+                        {t.name}
+                        <div className="text-xs opacity-80 mt-1">
+                          {t.role}
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
-                </div>
+                ))}
+              </motion.div>
 
+              {/* Arrows BELOW slider */}
+              <div className="flex justify-center gap-6 mt-6">
+                <button
+                  onClick={prev}
+                  className="w-10 h-10 rounded-full bg-green-600 text-white
+                            flex items-center justify-center shadow-md"
+                >
+                  <ChevronLeft size={20} />
+                </button>
 
-                  <Quote className="opacity-80 mb-4" size={24} />
-
-                  <p className="text-sm leading-relaxed mb-6 text-center">
-                    “{t.quote}”
-                  </p>
-
-                  <div className="border-t border-white/30 pt-4 text-sm font-semibold text-center">
-                    {t.name}
-                    <div className="text-xs opacity-80 mt-1">
-                      {t.role}
-                    </div>
-                  </div>
-                </motion.div>
+                <button
+                  onClick={next}
+                  className="w-10 h-10 rounded-full bg-green-600 text-white
+                            flex items-center justify-center shadow-md"
+                >
+                  <ChevronRight size={20} />
+                </button>
               </div>
-            ))}
-          </motion.div>
-        </div>
+            </div>
 
 
         {/* Dots */}
