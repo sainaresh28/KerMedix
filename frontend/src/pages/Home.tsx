@@ -24,6 +24,8 @@ import vaccinationImg from "@/assets/vaccination.jpg";
 import heroBackground from "@/assets/1635203.jpg";
 import heroBackground_L from "@/assets/1635203-L.jpg";
 import heroBackground_R from "@/assets/1635203-R.jpg";
+import ScrollStackFeatures from "@/components/ScrollStackFeatures";
+import DigitalHealthSection from "@/components/DigitalHealthSection";
 
 import heroAnimated from "@/assets/overlay.png";
 
@@ -101,6 +103,7 @@ const heroCss = `
 
 /* ================= TEXT SCRAMBLE ================= */
 const chars = "!<>-_\\/[]{}—=+*^?#________";
+
 
 const DecryptedText = ({ text, start }: { text: string; start: boolean }) => {
   const [displayed, setDisplayed] = useState("");
@@ -342,107 +345,80 @@ const Home = () => {
 
             {/* Enquiry Form */}
             <div className="lg:col-span-1">
-              <Card className="professional-form sticky top-8">
-                <CardHeader className="bg-black text-white rounded-t-xl">
-                  <CardTitle className="text-xl">Enquire Now</CardTitle>
-                  <p className="text-gray-300">
-                    Let's discuss your requirements
-                  </p>
-                </CardHeader>
+                <Card className="sticky top-8 rounded-[28px] border-[3px] border-[#5A4FD9] shadow-[0_25px_60px_rgba(0,0,0,0.18)] overflow-hidden bg-[#FBF7F2]">
+                  
+                  {/* Header */}
+                  <CardHeader className="bg-gradient-to-br from-[#0B0B0F] to-[#1A1A22] px-8 py-6">
+                    <CardTitle className="text-2xl font-bold text-white">
+                      Enquire Now
+                    </CardTitle>
 
-                <CardContent className="p-8">
-                  <form className="space-y-6">
-                    <input type="text" placeholder="Your Name" className="form-input" />
-                    <input type="email" placeholder="Email Address" className="form-input" />
-                    <input type="tel" placeholder="Phone Number" className="form-input" />
-                    <input type="text" placeholder="Organization" className="form-input" />
-                    <input type="text" placeholder="Location" className="form-input" />
-                    <textarea placeholder="Your Message" rows={4} className="form-input resize-none"></textarea>
+                    <p className="text-gray-300 text-sm mt-1">
+                      Let&apos;s discuss your requirements
+                    </p>
 
-                    <Button className="w-full btn-primary">
+                    <span className="block w-10 h-[3px] bg-[#F4C430] rounded-full mt-3" />
+                  </CardHeader>
+
+                  {/* Form */}
+                  <CardContent className="p-8 space-y-5">
+                    {[
+                      "Your Name",
+                      "Email Address",
+                      "Phone Number",
+                      "Organization",
+                      "Location",
+                    ].map((placeholder) => (
+                      <input
+                        key={placeholder}
+                        type="text"
+                        placeholder={placeholder}
+                        className="w-full h-12 px-4 rounded-xl border-2 border-[#7B6EF6]
+                                  text-gray-700 placeholder-gray-400
+                                  focus:outline-none focus:ring-2 focus:ring-[#7B6EF6]/40
+                                  transition"
+                      />
+                    ))}
+
+                    <textarea
+                      rows={4}
+                      placeholder="Your Message"
+                      className="w-full px-4 py-3 rounded-xl border-2 border-[#7B6EF6]
+                                text-gray-700 placeholder-gray-400 resize-none
+                                focus:outline-none focus:ring-2 focus:ring-[#7B6EF6]/40
+                                transition"
+                    />
+
+                    {/* Button */}
+                    <button
+                      className="w-full h-14 mt-2 rounded-xl
+                                bg-gradient-to-r from-[#5A4FD9] to-[#6D62FF]
+                                text-white font-semibold text-lg
+                                shadow-[0_6px_0_#F4C430]
+                                hover:translate-y-[1px]
+                                hover:shadow-[0_4px_0_#F4C430]
+                                active:translate-y-[2px]
+                                transition-all duration-150"
+                    >
                       Submit Enquiry
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+                    </button>
+                  </CardContent>
+                </Card>
+
             </div>
 
             {/* Right Content */}
             <div className="lg:col-span-2 space-y-12">
 
-              {/* Description */}
-              <div>
-                <h2 className="text-3xl font-bold text-black mb-6">
-                  Digital Health Records
-                </h2>
-
-                <p className="text-lg text-gray-700 leading-relaxed mb-8">
-                  KerMedix's Digital Health Records service helps institutions maintain organized,
-                  secure, and accessible medical data for migrant workers. The system captures
-                  health screenings, clinic visits, chronic condition logs, vaccination records,
-                  and counselling history in a centralized format.
-                </p>
-
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  Institutions benefit from simplified reporting, health trend analysis, and faster
-                  decision-making during emergencies or audits. The platform supports standalone
-                  use and ERP / HRMS integrations.
-                </p>
-              </div>
-
-              {/* Key Differentiators */}
-              <div>
-                <h3 className="text-xl font-semibold text-black mb-6 italic">
-                  Key differentiators:
-                </h3>
-
-                <div className="space-y-4">
-                  {keyDifferentiators.map((point, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start space-x-3"
-                      ref={(el) => (diffRefs.current[index] = el)}
-                      data-index={index}
-                    >
-                      <CheckCircle className="h-6 w-6 text-black mt-0.5" />
-                      <DecryptedText text={point} start={visibleDiffs[index]} />
-                    </div>
-                  ))}
-                </div>
-              </div>
+             <DigitalHealthSection />
 
               {/* Features */}
               <div>
                 <h3 className="text-2xl font-bold text-black mb-8">
                   Key Features
                 </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {features.map((feature) => (
-                    <Card
-                      key={feature.title}
-                      className="card-shadow hover:card-shadow-lg transition-all duration-300 border-2 border-black bg-white overflow-hidden"
-                    >
-                      <div className="h-48 overflow-hidden">
-                        <img
-                          src={feature.image}
-                          alt={feature.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-
-                      <CardContent className="p-6">
-                        <h4 className="font-semibold text-black text-lg mb-3">
-                          {feature.title}
-                        </h4>
-                        <p className="text-gray-700 leading-relaxed">
-                          {feature.description}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+                <ScrollStackFeatures features={features} />
+               </div>
 
               {/* CTA */}
               <div className="bg-gray-100 rounded-xl p-8 text-center border-2 border-black">
