@@ -251,7 +251,8 @@ const ScrollStack = ({
       return;
     }
 
-    const { default: Lenis } = await import("lenis");
+    const { default: Lenis } = await import("lenis/dist/lenis.mjs");
+
 
     const lenis = new Lenis({
       duration: 1.2,
