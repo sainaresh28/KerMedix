@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Phone, MapPin, Mail, ChevronDown, X } from "lucide-react";
 // import { HoverDropdownMenu } from "@/components/ui/dropdown-menu";
 import { User, Users, Shield, UserPlus} from 'lucide-react';
-import { Stethoscope } from 'lucide-react'; 
+import { Stethoscope } from 'lucide-react'; // or use Activity icon if Stethoscope is not available
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -63,12 +63,14 @@ const orangePortalBtn =
     "bg-orange-500 hover:bg-orange-600 text-black font-extrabold tracking-wide border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] hover:scale-105 transition-all font-[Poppins]";
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F9EFE3" }}>
+
       {/* Header - Glassmorphic on desktop only */}
-      <header className="lg:px-8 lg:py-4 sticky top-0 z-50">
+      <header className="lg:px-8 lg:py-4 sticky top-0 z-50" style={{ backgroundColor: "#F9EFE3" }}>
+
         {/* Desktop capsule header */}
         <div className="hidden lg:block">
-          <nav className="max-w-8xl mx-auto bg-white/90 backdrop-blur-md rounded-full shadow-lg border border-gray-200 px-8">
+          <nav className="max-w-8xl mx-auto bg-white/90 backdrop-blur-md rounded-full shadow-lg border border-black-200 px-8">
             <div className="flex justify-between items-center h-20">
               {/* Logo */}
               <div className="flex items-center">
@@ -218,7 +220,7 @@ const orangePortalBtn =
         </div>
 
         {/* Mobile header - unchanged */}
-        <nav className="lg:hidden bg-white shadow-sm sticky top-0 z-50">
+        <nav className="lg:hidden shadow-sm sticky top-0 z-50" style={{ backgroundColor: "#F9EFE3" }} >
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center h-20">
               {/* Logo */}
@@ -484,7 +486,7 @@ const orangePortalBtn =
                           <a href="tel:+917848091884" className="hover:text-emerald-400">
                             +91-7848091884
                           </a>
-                          <a href="tel:+917847810210" className="hover:text-emerald-400">
+                          <a href="tel:+7847810210" className="hover:text-emerald-400">
                             +91-7847810210
                           </a>
                         </div>
