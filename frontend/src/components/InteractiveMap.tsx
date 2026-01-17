@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Users, Building } from "lucide-react";
-import KeralaDistrictMap from "@/assets/Kerala-district-Map.png";
+import KeralaDistrictMap from "@/assets/keralam3.png";
 
 const InteractiveMap = () => {
   const visibleElements = useScrollAnimation();
@@ -60,19 +60,18 @@ const InteractiveMap = () => {
             }`}
             data-animate="map-visual"
           >
-            <div
-              className="
-                relative
-                bg-secondary
-                rounded-lg
-                shadow-md
-                overflow-hidden   
-                flex items-center justify-center
-                h-[450px]
-                w-[400px]
-                max-w-full
-              "
-            >
+              <div
+                className="
+                  relative
+                  rounded-lg
+                  overflow-hidden
+                  flex items-center justify-center
+                  h-[450px]
+                  w-[400px]
+                  max-w-full
+                "
+              >
+
               <img
                 src={KeralaDistrictMap}
                 alt="Kerala District Map"
