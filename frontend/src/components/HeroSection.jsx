@@ -1,13 +1,6 @@
 import Lenis from "lenis";
-import { useEffect } from "react";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionTemplate,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 
 import introImage from "@/assets/1635203.jpg";
@@ -332,4 +325,5 @@ const ParallaxImg = ({ className, alt, src, start, end }) => {
     />
   );
 };
+
 
