@@ -13,10 +13,10 @@ type Feature = {
 };
 
 const CARD_COLORS = [
-  "#6F4BD8", 
+  "#402EE6", 
   "#FFCC33", 
   "#402EE6",
-  "#FF8A00", 
+  "#FFCC33", 
 ];
 
 const isDarkBg = (color: string) =>
