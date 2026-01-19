@@ -110,14 +110,16 @@ const ScrollStackShowcase: React.FC = () => {
             style={{
               fontSize: '3rem',
               fontWeight: 800,
-              color: 'black',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
               marginBottom: '1rem',
               letterSpacing: '-1px'
             }}
           >
             Kermedix Healthcare Platform
           </h1>
-
           <p
             style={{
               fontSize: '1.1rem',
