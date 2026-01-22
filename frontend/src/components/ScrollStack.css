@@ -53,16 +53,17 @@
 }
 
 .scroll-stack-card-icon.health {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #5a67d8; /* Indigo */
 }
 
 .scroll-stack-card-icon.feature {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: #e53e3e; /* Soft Red */
 }
 
 .scroll-stack-card-icon.service {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: #3182ce; /* Blue */
 }
+
 
 /* Card Content */
 .scroll-stack-card-content {
@@ -105,19 +106,20 @@
 }
 
 .scroll-stack-card-detail.accent1 {
-  background: #f0f4ff;
-  border-color: #667eea;
+  background: #edf2ff;
+  border-color: #5a67d8;
 }
 
 .scroll-stack-card-detail.accent2 {
-  background: #fff0f6;
-  border-color: #f5576c;
+  background: #fff5f5;
+  border-color: #e53e3e;
 }
 
 .scroll-stack-card-detail.accent3 {
-  background: #e6fbff;
-  border-color: #00f2fe;
+  background: #ebf8ff;
+  border-color: #3182ce;
 }
+
 
 .scroll-stack-card-detail-label {
   font-size: 0.75rem;
@@ -148,14 +150,15 @@
 }
 
 .scroll-stack-card-badge.featured {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #5a67d8;
   color: white;
 }
 
 .scroll-stack-card-badge.new {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: #e53e3e;
   color: white;
 }
+
 
 /* Spacer */
 .scroll-stack-end {
