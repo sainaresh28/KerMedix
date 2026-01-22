@@ -123,7 +123,7 @@ const HeroSection = () => {
           .illustrations-mobile {
             position: absolute;
             top: 320px;
-            right: 9px;
+            right: 26px;
             width: 230px;
             height: 230px;
             z-index: 2;
