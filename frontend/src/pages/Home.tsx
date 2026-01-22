@@ -79,7 +79,8 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#F9EFE3" }}>
+    <div className="w-full overflow-x-hidden" style={{ backgroundColor: "#F9EFE3" }}>
+
 
       <HeroSection />
       <NewsTicker />
