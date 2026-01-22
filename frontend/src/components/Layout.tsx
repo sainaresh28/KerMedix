@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { Phone, MapPin, Mail, ChevronDown, X } from "lucide-react";
-// import { HoverDropdownMenu } from "@/components/ui/dropdown-menu";
+
 import { User, Users, Shield, UserPlus} from 'lucide-react';
-import { Stethoscope } from 'lucide-react'; // or use Activity icon if Stethoscope is not available
+import { Stethoscope } from 'lucide-react'; 
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ import { motion, useMotionValue } from "framer-motion";
 import { useEffect } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const user = null; // temporary stub
+  const user = null; 
 const logout = () => {};
 
   const { t } = useTranslation();
@@ -66,7 +66,19 @@ const orangePortalBtn =
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F9EFE3" }}>
 
       {/* Header - Glassmorphic on desktop only */}
-      <header className="lg:px-8 lg:py-4 sticky top-0 z-50" style={{ backgroundColor: "#F9EFE3" }}>
+        <header
+          className="
+            relative lg:fixed
+            top-0 left-0 w-full
+            z-50
+            bg-[#355f4a] lg:bg-transparent
+            lg:px-8 lg:pt-4
+          "
+        >
+
+
+
+
 
         {/* Desktop capsule header */}
         <div className="hidden lg:block">
@@ -220,7 +232,8 @@ const orangePortalBtn =
         </div>
 
         {/* Mobile header - unchanged */}
-        <nav className="lg:hidden shadow-sm sticky top-0 z-50" style={{ backgroundColor: "#F9EFE3" }} >
+        <nav className="lg:hidden shadow-sm sticky top-0 z-50 bg-transparent">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center h-20">
               {/* Logo */}
@@ -233,21 +246,29 @@ const orangePortalBtn =
                       className="min-w-full min-h-full object-cover"
                     />
                   </div>
-                  <div>
-                    <div className="text-xl font-bold text-black">KerMedix</div>
-                    <div className="text-sm text-gray-600">Health Services</div>
+                  <div className="text-l font-bold text-white lg:text-black">
+                    KerMedix •
                   </div>
-                </Link>
-              </div>
+                  <div className="text-l font-bold text-white lg:text-black">
+                  Health Services
+                  </div>
 
-              {/* Mobile Hamburger */}
-              <div className="flex items-center">
-                <button
-                  className="text-black border-2 border-black p-2 rounded-md"
-                  onClick={() => setMobileMenuOpen(true)}
-                >
-                  ☰
-                </button>
+                    </Link>
+                  </div>
+
+                  {/* Mobile Hamburger */}
+                  <div className="flex items-center">
+                  <button
+                    onClick={() => setMobileMenuOpen(true)}
+                    className="
+                      text-white border-2 border-white
+                      lg:text-black lg:border-black
+                      p-2 rounded-md
+                    "
+                  >
+                    ☰
+                  </button>
+
               </div>
             </div>
 
