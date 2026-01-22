@@ -88,63 +88,112 @@ const InteractiveMap = () => {
           </div>
 
 
-          {/* District List */}
-          <div
-            className={`slide-in-right ${
-              visibleElements.has("map-stats") ? "visible" : ""
-            }`}
-            data-animate="map-stats"
-          >
+            {/* District List */}
             <div
-              className="
-                space-y-4
-                max-h-[320px] md:max-h-[450px]
-                overflow-y-auto
-                pr-2
-                touch-pan-y
-                [-webkit-overflow-scrolling:touch]
-              "
+              className={`slide-in-right ${
+                visibleElements.has("map-stats") ? "visible" : ""
+              }`}
+              data-animate="map-stats"
             >
-              {districts.map((district) => {
-                const active = selectedDistrict === district.name;
+             
+              <style>
+                {`
+                  .district-scroll::-webkit-scrollbar {
+                    width: 8px;
+                  }
 
-                return (
-                  <Card
-                    key={district.name}
-                    onClick={() =>
-                      setSelectedDistrict(active ? null : district.name)
-                    }
-                    className={`
-                      cursor-pointer transition
-                      ${active ? "border-foreground bg-accent/30" : ""}
-                    `}
-                  >
-                    <CardContent className="p-4">
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-3">
-                          <MapPin size={18} />
-                          <span className="font-semibold">
-                            {district.name}
-                          </span>
-                        </div>
+                  .district-scroll::-webkit-scrollbar-track {
+                    background: #ffcc33;
+                    border-radius: 10px;
+                  }
 
-                        <div className="flex gap-4 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Users size={14} />
-                            {district.workers}
+                  .district-scroll::-webkit-scrollbar-thumb {
+                    background: #402ee6;
+                    border-radius: 10px;
+                    border: 2px solid #ffcc33;
+                  }
+
+                  .district-scroll::-webkit-scrollbar-thumb:hover {
+                    background: #2f20c9;
+                  }
+
+                  /* Firefox */
+                  .district-scroll {
+                    scrollbar-width: thin;
+                    scrollbar-color: #402ee6 #ffcc33;
+                  }
+                `}
+              </style>
+
+              <div
+                className="
+                  district-scroll
+                  space-y-4
+                  max-h-[320px] md:max-h-[450px]
+                  overflow-y-auto
+                  pr-2
+                  touch-pan-y
+                  [-webkit-overflow-scrolling:touch]
+                "
+              >
+                {districts.map((district) => {
+                  const active = selectedDistrict === district.name;
+
+                  return (
+                    <Card
+                      key={district.name}
+                      onClick={() =>
+                        setSelectedDistrict(active ? null : district.name)
+                      }
+                      className={`
+                        cursor-pointer
+                        transition-all
+                        duration-300
+                        bg-[#334cf4]
+                        border border-[#402EE6]
+                        text-[#F9EFE3]
+                        hover:brightness-110
+                        hover:scale-[1.01]
+                        hover:shadow-[0_12px_30px_rgba(64,46,230,0.45)]
+                        active:scale-[0.97]
+                        ${
+                          active
+                            ? "ring-2 ring-[#FFCC33] shadow-[0_0_0_6px_rgba(255,204,51,0.25)]"
+                            : ""
+                        }
+                      `}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex justify-between items-center">
+
+                          {/* District name */}
+                          <div className="flex items-center gap-3">
+                            <MapPin size={18} className="text-[#FFCC33]" />
+                            <span className="font-semibold">
+                              {district.name}
+                            </span>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Building size={14} />
-                            {district.clinics}
+
+                          {/* Stats */}
+                          <div className="flex gap-4 text-sm text-[#F9EFE3]/85">
+                            <div className="flex items-center gap-1">
+                              <Users size={14} className="text-[#F9EFE3]" />
+                              {district.workers}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Building size={14} className="text-[#F9EFE3]" />
+                              {district.clinics}
+                            </div>
                           </div>
+
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+
         </div>
       </div>
     </section>
