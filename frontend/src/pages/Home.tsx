@@ -142,7 +142,7 @@ const Home = () => {
                   {/* Button */}
                   <button
                     className="w-full h-16 mt-4 rounded-xl 
-                              bg-[#1f11eb]
+                              bg-[#2f18ff]
 
                               text-white font-semibold text-lg
                               shadow-[0_6px_0_#F4C430]
