@@ -29,14 +29,6 @@ const logout = () => {};
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const [scrolled, setScrolled] = useState(false);
-
-useEffect(() => {
-  const onScroll = () => setScrolled(window.scrollY > 10);
-  window.addEventListener("scroll", onScroll);
-  return () => window.removeEventListener("scroll", onScroll);
-}, []);
-
 
   if (location.pathname.startsWith('/dashboard')) {
     return <>{children}</>;
@@ -220,22 +212,22 @@ useEffect(() => {
 
       {/* Header  */}
         <header
-          className={`
+          className="
             relative lg:fixed
             top-0 left-0 w-full
             z-50
-            transition-all duration-500 ease-in-out
 
-            ${
-              scrolled
-                ? "lg:bg-transparent"
-                : "bg-gradient-to-r from-[#1b5338] via-[#24583b] to-[#2e5a44]"
-            }
+            bg-gradient-to-r
+            from-[#1b5338]
+            via-[#24583b]
+            to-[#2e5a44]
+
+            lg:bg-none lg:bg-transparent
 
             lg:px-8
             lg:pt-4
             lg:pb-4
-          `}
+          "
         >
 
         {/* Desktop capsule header */}
@@ -854,6 +846,5 @@ useEffect(() => {
     </div>
   );
 };
-
 
 export default Layout;
