@@ -209,13 +209,17 @@ const logout = () => {};
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F9EFE3" }}>
 
-      {/* Header - Glassmorphic on desktop only */}
+      {/* Header  */}
         <header
           className="
             relative lg:fixed
             top-0 left-0 w-full
             z-50
-            bg-[#355f4a] lg:bg-transparent
+            bg-gradient-to-r
+            from-[#1b5338]
+            via-[#24583b]
+            to-[#2e5a44]
+            lg:bg-transparent
             lg:px-8 lg:pt-4
           "
         >
@@ -402,7 +406,9 @@ const logout = () => {};
             >
               KerMedix
             </span>
-
+          <span className="text-sm text-white/80 tracking-wide">
+            Health Services
+          </span>
           </div>
         </Link>
 
@@ -576,6 +582,7 @@ const logout = () => {};
             });
           };
 
+        
           return (
             <>
               {/*Animated Background Grid */}
