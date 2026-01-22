@@ -22,7 +22,7 @@ const features = [
     desc: "Access and manage patient history instantly with AI-backed digital records.",
     span: "md:col-span-2 md:row-span-2",
     icon: HeartPulse,
-    bg: "bg-[#6F4BD8]",
+    bg: "bg-[#4b62fe]",
     text: "text-white",
     type: "hero",
     image: "/images/facility2.png",
@@ -99,7 +99,7 @@ export default function BentoFeatures() {
       {/* HEADER */}
       <div className="mb-16 md:mb-24 text-center">
         <h2 className="text-4xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
-          Healthcare, but <span className="italic text-[#6F4BD8]">smarter</span>.
+          Healthcare, but <span className="italic text-[#2f18ff]">smarter</span>.
         </h2>
         <p className="text-gray-500 mt-4 md:mt-8 text-base md:text-2xl">
           Built like a modern SaaS. Designed for real lives.
@@ -110,11 +110,11 @@ export default function BentoFeatures() {
       <div className="rounded-[22px] md:rounded-[32px] border bg-white shadow-[0_30px_80px_rgba(0,0,0,0.18)] overflow-hidden">
 
         {/* HEADER BAR */}
-        <div className="flex items-center gap-2 px-4 md:px-6 py-3 md:py-4 border-b bg-gray-100">
+        <div className="flex items-center gap-2 px-4 md:px-6 py-3 md:py-4 border-b bg-blue-700">
           <span className="w-3 h-3 rounded-full bg-red-500" />
           <span className="w-3 h-3 rounded-full bg-yellow-400" />
           <span className="w-3 h-3 rounded-full bg-green-500" />
-          <span className="ml-2 md:ml-4 text-xs md:text-sm text-gray-500 font-medium">
+          <span className="ml-2 md:ml-4 text-xs md:text-sm text-white font-medium">
             KerMedix Platform
           </span>
         </div>
