@@ -77,17 +77,25 @@ const handleSubmit = (e: React.FormEvent) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-          {/* Contact Form */}
-          <div className="bg-white rounded-2xl border border-black/15 shadow-[0_24px_60px_rgba(0,0,0,0.18)] p-10 min-h-[550px]">
+         {/* Contact Form */}
+        <div className="bg-white rounded-3xl border-2 border-black shadow-[0_24px_60px_rgba(0,0,0,0.18)] overflow-hidden min-h-[550px]">
 
-            <h2 className="text-xl font-semibold text-black mb-6">
+          {/* Top Dark Strip (from image) */}
+          <div className="bg-[#0F1220] px-8 py-6">
+            <h2 className="text-lg font-semibold text-white">
               Send a Message
             </h2>
+            <div className="mt-2 h-[3px] w-14 rounded-full bg-[#F4C430]" />
+          </div>
 
+          {/* Form Body */}
+          <div className="p-10">
             <form onSubmit={handleSubmit} className="space-y-5">
 
               <div>
-                <Label className="text-black font-medium">Full Name *</Label>
+                <Label className="text-black font-medium">
+                  Full Name *
+                </Label>
                 <Input
                   name="name"
                   value={formData.name}
@@ -95,8 +103,8 @@ const handleSubmit = (e: React.FormEvent) => {
                   placeholder="Enter your full name"
                   required
                   className="
-                    mt-1 h-11 rounded-lg
-                    border-black/25
+                    mt-1 h-11 rounded-xl
+                    border-black/20
                     focus:border-[#402EE6]
                     focus:ring-[#402EE6]
                   "
@@ -104,7 +112,9 @@ const handleSubmit = (e: React.FormEvent) => {
               </div>
 
               <div>
-                <Label className="text-black font-medium">Email Address *</Label>
+                <Label className="text-black font-medium">
+                  Email Address *
+                </Label>
                 <Input
                   type="email"
                   name="email"
@@ -113,8 +123,8 @@ const handleSubmit = (e: React.FormEvent) => {
                   placeholder="Enter your email address"
                   required
                   className="
-                    mt-1 h-11 rounded-lg
-                    border-black/25
+                    mt-1 h-11 rounded-xl
+                    border-black/20
                     focus:border-[#402EE6]
                     focus:ring-[#402EE6]
                   "
@@ -122,7 +132,9 @@ const handleSubmit = (e: React.FormEvent) => {
               </div>
 
               <div>
-                <Label className="text-black font-medium">Message *</Label>
+                <Label className="text-black font-medium">
+                  Message *
+                </Label>
                 <Textarea
                   name="message"
                   rows={5}
@@ -131,48 +143,50 @@ const handleSubmit = (e: React.FormEvent) => {
                   placeholder="Describe your inquiry or issue"
                   required
                   className="
-                    mt-1 rounded-lg
-                    border-black/25
+                    mt-1 rounded-xl
+                    border-black/20
                     focus:border-[#402EE6]
                     focus:ring-[#402EE6]
                   "
                 />
               </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="
-                w-full h-12 text-base font-semibold
-                bg-[#402EE6]
-                hover:bg-[#3324c9]
-                text-white
-                shadow-md
-                disabled:opacity-60
-              "
-            >
-              {loading ? "Sending..." : "Submit Message"}
-            </Button>
+              <Button
+                type="submit"
+                disabled={loading}
+                className="
+                  w-full h-12 text-base font-semibold
+                  bg-[#3A32FF]
+                  hover:bg-[#2c25d4]
+                  text-white
+                  shadow-md
+                  rounded-xl
+                  disabled:opacity-60
+                "
+              >
+                {loading ? "Sending..." : "Submit Message"}
+              </Button>
 
-            {status === "success" && (
-              <p className="text-green-600 font-medium text-sm mt-3">
-                Message sent successfully. We’ll contact you soon.
-              </p>
-            )}
+              {status === "success" && (
+                <p className="text-green-600 font-medium text-sm mt-3">
+                  Message sent successfully. We’ll contact you soon.
+                </p>
+              )}
 
-            {status === "error" && (
-              <p className="text-red-600 font-medium text-sm mt-3">
-                Failed to send message. Please try again later.
-              </p>
-            )}
-
+              {status === "error" && (
+                <p className="text-red-600 font-medium text-sm mt-3">
+                  Failed to send message. Please try again later.
+                </p>
+              )}
 
             </form>
           </div>
+        </div>
+
 
           {/* Info Panels */}
           <div className="space-y-6">
-          <div className="bg-white rounded-2xl border border-black/15 p-6 shadow-md">
+          <div className="bg-white rounded-2xl border-2 border-black p-6 shadow-md">
             <h3 className="font-semibold text-black mb-4">
               Healthcare Support
             </h3>
@@ -211,7 +225,8 @@ const handleSubmit = (e: React.FormEvent) => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-black/15 p-6 shadow-md">
+          <div className="bg-white rounded-2xl border-2 border-black
+ p-6 shadow-md">
             <h3 className="font-semibold text-black mb-4">
               Technical Support
             </h3>
