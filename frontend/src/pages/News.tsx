@@ -8,29 +8,32 @@ const News = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = async () => {
-    if (!email || !email.includes("@")) {
-      alert("Please enter a valid email");
-      return;
-    }
+const handleSubscribe = async () => {
+  if (!email || !email.includes("@")) {
+    alert("Please enter a valid email");
+    return;
+  }
 
-    try {
-      setLoading(true);
-      const res = await fetch("http://localhost:5000/subscribe-newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+  try {
+    setLoading(true);
 
-      if (!res.ok) throw new Error();
-      alert("Subscribed successfully!");
-      setEmail("");
-    } catch {
-      alert("Subscription failed. Try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const res = await fetch("/api/subscribe-newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!res.ok) throw new Error();
+
+    alert("Subscribed successfully!");
+    setEmail("");
+  } catch {
+    alert("Subscription failed. Try again later.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const newsArticles = [
     {
