@@ -1,314 +1,212 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
-import emailjs from "@emailjs/browser";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ExternalLink, Mail, Newspaper } from "lucide-react";
 
+import healthScreenImg from "@/assets/health-screen.jpg";
 
-
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
+const News = () => {
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setStatus("idle");
+  const handleSubscribe = async () => {
+    if (!email || !email.includes("@")) {
+      alert("Please enter a valid email");
+      return;
+    }
 
-  emailjs
-    .send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-      },
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    )
-    .then(() => {
-      setStatus("success");
-      setFormData({ name: "", email: "", message: "" });
-    })
-    .catch((error) => {
-      console.error("EmailJS Error:", error);
-      setStatus("error");
-    })
-    .finally(() => {
+    try {
+      setLoading(true);
+      const res = await fetch("http://localhost:5000/subscribe-newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) throw new Error();
+      alert("Subscribed successfully!");
+      setEmail("");
+    } catch {
+      alert("Subscription failed. Try again later.");
+    } finally {
       setLoading(false);
-    });
-};
-
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    }
   };
 
+  const newsArticles = [
+    {
+      id: 1,
+      title: "87.7% of Migrant Workers Unaware of State Health Policies, Study Finds",
+      link: "https://www.hindustantimes.com/india-news/study-flags-how-kerala-s-migrant-workers-remain-excluded-from-govt-health-schemes-101758543832317.html",
+      featured: true,
+      image: healthScreenImg,
+    },
+    {
+      id: 2,
+      title: "Kerala CM Inaugurates 'Norka Care' Health Insurance Scheme for Non-Resident Malayalis",
+      link: "https://timesofindia.indiatimes.com/business/india-business/kerala-cm-inaugurates-norka-care-a-comprehensive-health-and-accident-insurance-scheme-for-non-resident-malayalis/articleshow/124148777.cms",
+    },
+    {
+      id: 3,
+      title: "Migrant Labourers Form Majority of Workforce in Kerala Marine Fisheries Sector",
+      link: "https://timesofindia.indiatimes.com/city/kochi/migrant-labourers-form-majority-of-workforce-in-kerala-marine-fisheries-sector-study-finds/articleshow/123551411.cms",
+    },
+    {
+      id: 4,
+      title: "Mandatory Health Screening for Migrant Workers in Udupi District",
+      link: "https://timesofindia.indiatimes.com/city/mangaluru/mandatory-health-screening-for-migrant-workers-health-dept/articleshow/121322695.cms",
+    },
+    {
+      id: 5,
+      title: "Kerala Clinic For Migrant Workers Featured In WHO List",
+      link: "https://www.themigrationstory.com/post/kerala-clinic-for-migrant-workers-featured-in-who-list",
+    },
+    {
+      id: 6,
+      title: "Kerala Launches AI-Powered Health Dashboard to Track Migrant Worker Health",
+      link: "https://www.digitalhealthnews.com/kerala-health-department-implements-ai-tools-for-patient-care-early-diagnosis",
+    },
+  ];
+
+  const featured = newsArticles.find(n => n.featured);
+  const rest = newsArticles.filter(n => !n.featured);
+
   return (
-    <section
-      className="min-h-[85vh] py-20"
-      style={{ backgroundColor: "#F9EFE3" }}
-    >
-      <div className="max-w-6xl mx-auto px-4">
+    <div className="bg-[#F9EFE3] pt-28 pb-32">
+      <div className="max-w-7xl mx-auto px-4">
 
         {/* Header */}
-        <div className="text-center mt-6 mb-14">
-
-          <h1 className="text-4xl font-extrabold text-black mb-3">
-            Contact & Support
+        <div className="text-center mb-24">
+          <h1 className="text-5xl font-extrabold text-black mb-6">
+            News & Public Updates
           </h1>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
-            Official healthcare and technical support assistance.
+            Curated reports and verified media coverage on migrant worker health
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-
-         {/* Contact Form */}
-        <div className="bg-white rounded-3xl border-2 border-black shadow-[0_24px_60px_rgba(0,0,0,0.18)] overflow-hidden min-h-[550px]">
-
-          {/* Top Dark Strip (from image) */}
-          <div className="bg-[#0F1220] px-8 py-6">
-            <h2 className="text-lg font-semibold text-white">
-              Send a Message
-            </h2>
-            <div className="mt-2 h-[3px] w-14 rounded-full bg-[#F4C430]" />
-          </div>
-
-          {/* Form Body */}
-          <div className="p-10">
-            <form onSubmit={handleSubmit} className="space-y-5">
-
-              <div>
-                <Label className="text-black font-medium">
-                  Full Name *
-                </Label>
-                <Input
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Enter your full name"
-                  required
-                  className="
-                    mt-1 h-11 rounded-xl
-                    border-black/20
-                    focus:border-[#402EE6]
-                    focus:ring-[#402EE6]
-                  "
+        {/* Featured */}
+        {featured && (
+          <a href={featured.link} target="_blank" rel="noopener noreferrer">
+            <Card className="mb-28 border-2 border-black rounded-[28px] bg-white
+              transition-transform hover:-translate-y-1">
+              <div className="grid md:grid-cols-2">
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                  className="h-72 md:h-full w-full object-cover rounded-l-[26px]"
                 />
-              </div>
+                <CardHeader className="p-12">
+                  {/* INSIDE DECOR */}
+                  <div className="inline-flex items-center gap-2 mb-6">
+                    <div className="w-3 h-3 bg-[#402EE6] rounded-sm" />
+                    <span className="text-xs tracking-widest uppercase text-black/60">
+                      Featured Coverage
+                    </span>
+                  </div>
 
-              <div>
-                <Label className="text-black font-medium">
-                  Email Address *
-                </Label>
-                <Input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="Enter your email address"
-                  required
-                  className="
-                    mt-1 h-11 rounded-xl
-                    border-black/20
-                    focus:border-[#402EE6]
-                    focus:ring-[#402EE6]
-                  "
-                />
-              </div>
+                  <CardTitle className="text-3xl font-bold text-black mb-6">
+                    {featured.title}
+                  </CardTitle>
 
-              <div>
-                <Label className="text-black font-medium">
-                  Message *
-                </Label>
-                <Textarea
-                  name="message"
-                  rows={5}
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  placeholder="Describe your inquiry or issue"
-                  required
-                  className="
-                    mt-1 rounded-xl
-                    border-black/20
-                    focus:border-[#402EE6]
-                    focus:ring-[#402EE6]
-                  "
-                />
+                  <CardDescription className="text-[#402EE6] flex items-center gap-2">
+                    Read full article <ExternalLink className="h-4 w-4" />
+                  </CardDescription>
+                </CardHeader>
               </div>
+            </Card>
+          </a>
+        )}
 
-              <Button
-                type="submit"
-                disabled={loading}
-                className="
-                  w-full h-12 text-base font-semibold
-                  bg-[#3A32FF]
-                  hover:bg-[#2c25d4]
-                  text-white
-                  shadow-md
-                  rounded-xl
-                  disabled:opacity-60
-                "
+        {/* Grid */}
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+          {rest.map(article => (
+            <a key={article.id} href={article.link} target="_blank" rel="noopener noreferrer">
+              <Card
+                className="h-full border-2 border-black rounded-[24px] bg-white
+                transition-transform hover:-translate-y-1"
               >
-                {loading ? "Sending..." : "Submit Message"}
-              </Button>
+                <CardHeader className="p-8">
+                  {/* INSIDE DECOR */}
+                  <div className="mb-4">
+                    <span className="inline-flex items-center gap-2 px-3 py-1
+                      text-xs font-medium text-[#402EE6]
+                      bg-[#402EE6]/10 rounded-full">
+                      <Newspaper className="h-3 w-3" />
+                      Public Report
+                    </span>
+                  </div>
 
-              {status === "success" && (
-                <p className="text-green-600 font-medium text-sm mt-3">
-                  Message sent successfully. We’ll contact you soon.
-                </p>
-              )}
+                  <CardTitle className="text-lg font-semibold text-black leading-snug mb-5">
+                    {article.title}
+                  </CardTitle>
 
-              {status === "error" && (
-                <p className="text-red-600 font-medium text-sm mt-3">
-                  Failed to send message. Please try again later.
-                </p>
-              )}
-
-            </form>
-          </div>
+                  <CardDescription className="text-sm text-[#402EE6] flex items-center gap-1">
+                    Read article <ExternalLink className="h-3 w-3" />
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </a>
+          ))}
         </div>
 
+        {/* Stay Updated - newsletter */}
+        <div className="mt-24 sm:mt-32 lg:mt-36 px-4 sm:px-0">
+          <div className="border-2 border-black rounded-[28px] sm:rounded-[36px] bg-[#2717ff] p-8 sm:p-12 lg:p-16">
+            <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-12">
 
-          {/* Info Panels */}
-          <div className="space-y-6">
-          <div className="bg-white rounded-2xl border-2 border-black p-6 shadow-md">
-            <h3 className="font-semibold text-black mb-4">
-              Healthcare Support
-            </h3>
-
-            <div className="space-y-4 text-sm">
-
-              {/* Email */}
-              <div className="flex items-center gap-3 text-black/70">
-                <Mail className="w-4 h-4 text-[#402EE6]" />
-                <a
-                  href="mailto:dhskerala.hlth@kerala.gov.in?subject=Healthcare%20Support"
-                  className="hover:text-[#402EE6] transition-colors font-medium"
-                >
-                  dhskerala.hlth@kerala.gov.in
-                </a>
-              </div>
-
-              {/* Location */}
-              <div className="flex items-start gap-3 text-black/70">
-                <MapPin className="w-4 h-4 text-[#fb0505] mt-1" />
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=Directorate+of+Health+Services+Kerala"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#402EE6] transition-colors font-medium"
-                >
-                  Directorate of Health Services, Kerala
-                </a>
-              </div>
-
-              {/* Hours */}
-              <p className="text-black/60">
-                <strong className="text-black">Hours:</strong> Mon – Fri, 9:00 AM – 6:00 PM
-              </p>
-
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl border-2 border-black
- p-6 shadow-md">
-            <h3 className="font-semibold text-black mb-4">
-              Technical Support
-            </h3>
-
-            <div className="space-y-4 text-sm">
-
-              {/* Description */}
-              <p className="text-black/70">
-                Portal access, login issues, and system-related queries.
-              </p>
-
-              {/* Email */}
-              <div className="flex items-center gap-3 text-black/70">
-                <Mail className="w-4 h-4 text-[#402EE6]" />
-                <a
-                  href="mailto:kermedix.Dhrms@gmail.com?subject=Technical%20Support"
-                  className="hover:text-[#402EE6] transition-colors font-medium"
-                >
-                  kermedix.Dhrms@gmail.com
-                </a>
-              </div>
-
-              {/* Phone */}
-              <div className="flex items-center gap-3 text-black/70">
-                <Phone className="w-4 h-4 text-[#027b2a]" />
-                <div className="flex items-center gap-4">
-                  <a
-                    href="tel:+917848091884"
-                    className="hover:text-[#402EE6] transition-colors font-medium"
-                  >
-                    +91 78480 91884
-                  </a>
-                  <span className="text-black/40">|</span>
-                  <a
-                    href="tel:+917847810210"
-                    className="hover:text-[#402EE6] transition-colors font-medium"
-                  >
-                    +91 78478 10210
-                  </a>
+              {/* Left Content */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 max-w-xl text-center sm:text-left">
+                <div className="p-4 border-2 border-white rounded-xl shrink-0">
+                  <Newspaper className="h-6 w-6 text-[#eeff01]" />
+                </div>
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                    Stay Updated
+                  </h2>
+                  <p className="text-sm sm:text-base text-white leading-relaxed">
+                    Receive important migrant health policy updates, research insights,
+                    and verified news—delivered responsibly.
+                  </p>
                 </div>
               </div>
 
+              {/* Right Form */}
+              <div className="w-full max-w-md">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="relative flex-1">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className="w-full pl-11 pr-4 py-3 border-2 border-black rounded-xl
+                      focus:outline-none focus:ring-2 focus:ring-[#000003]"
+                    />
+                  </div>
 
-              {/* Response */}
-              <p className="text-black/60">
-                <strong className="text-black">Response:</strong> Within 24 hours
-              </p>
+                  <button
+                    onClick={handleSubscribe}
+                    disabled={loading}
+                    className="w-full sm:w-auto px-8 py-3 bg-[#ffd900] text-black font-semibold rounded-xl disabled:opacity-60"
+                  >
+                    {loading ? "…" : "Subscribe"}
+                  </button>
+                </div>
+
+                <p className="text-xs text-white/90 mt-4 text-center sm:text-left">
+                  No spam. Unsubscribe anytime.
+                </p>
+              </div>
 
             </div>
           </div>
-
-            {/* Emergency Highlight */}
-          <div
-            className="rounded-2xl p-6 shadow-md"
-            style={{ backgroundColor: "#FFCC33" }}
-          >
-            <h3 className="font-semibold text-black mb-2">
-              Medical Emergency
-            </h3>
-
-            {/* Working emergency numbers */}
-            <p className="font-bold text-black">
-              <a href="tel:108" className="text-red-600 hover:underline">
-                Ambulance: 108
-              </a>
-              &nbsp;|&nbsp;
-              <a href="tel:100" className="text-red-600 hover:underline">
-                Police: 100
-              </a>
-              &nbsp;|&nbsp;
-              <a href="tel:101" className="text-red-600 hover:underline">
-                Fire: 101
-              </a>
-            </p>
-          </div>
-
-
-          </div>
         </div>
+
+
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Contact;
+export default News;
