@@ -29,6 +29,13 @@ const DigitalHealthSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [pillY, setPillY] = useState(0);
 
+  /* ---------- HAPTIC HELPER ---------- */
+  const triggerHaptic = (pattern: number | number[]) => {
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+      navigator.vibrate(pattern);
+    }
+  };
+
   /* ---------- INIT SOUND ---------- */
   useEffect(() => {
     const audio = new Audio(stepClick);
@@ -36,7 +43,7 @@ const DigitalHealthSection = () => {
     audioRef.current = audio;
   }, []);
 
-
+  /* ---------- RESET WHEN OUT OF VIEW ---------- */
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -59,7 +66,7 @@ const DigitalHealthSection = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       () => {
-        const centerY = window.innerHeight * 0.45; // 🔥 anticipates scroll
+        const centerY = window.innerHeight * 0.45;
         let closestIndex = lastIndexRef.current;
         let minDistance = Infinity;
 
@@ -69,7 +76,6 @@ const DigitalHealthSection = () => {
           const rect = el.getBoundingClientRect();
           const elCenter = rect.top + rect.height / 2;
 
-          // strong bias → switches faster
           const distance = Math.abs(elCenter - centerY) * 0.7;
 
           if (distance < minDistance) {
@@ -85,11 +91,14 @@ const DigitalHealthSection = () => {
           const el = itemRefs.current[closestIndex];
           if (el) setPillY(el.offsetTop);
 
+          // 🔊 Sound feedback
           audioRef.current?.play().catch(() => {});
+
+          // 📳 Haptic feedback (subtle tick)
+          triggerHaptic(12);
         }
       },
       {
-   
         rootMargin: "-36% 0px -36% 0px",
         threshold: 0,
       }
@@ -101,13 +110,11 @@ const DigitalHealthSection = () => {
 
   return (
     <div className="space-y-6">
-
       {/* TITLE */}
       <div>
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-[-0.03em] text-black">
           Digital Health Records
         </h2>
- 
       </div>
 
       {/* DESCRIPTION */}
@@ -135,15 +142,14 @@ const DigitalHealthSection = () => {
         </h3>
 
         <div className="relative pl-5">
-
-          {/* GLASS PILL  */}
+          {/* GLASS PILL */}
           <motion.div
             animate={{ y: pillY, scale: 1.035 }}
             transition={{
               type: "spring",
-              stiffness: 340,   
-              damping: 18,     
-              mass: 0.35,      
+              stiffness: 340,
+              damping: 18,
+              mass: 0.35,
             }}
             className="
               absolute left-0
@@ -182,7 +188,6 @@ const DigitalHealthSection = () => {
           ))}
         </div>
       </div>
-
     </div>
   );
 };
