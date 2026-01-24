@@ -83,6 +83,7 @@ const HeroSection = () => {
 
           /* ---------- TITLES ---------- */
           .hero-title {
+            
             text-align: left;
             margin-bottom: 1rem;
           }
@@ -122,7 +123,7 @@ const HeroSection = () => {
           /* ---------- LARGE CIRCLE (RIGHT) ---------- */
           .illustrations-mobile {
             position: absolute;
-            top: 320px;
+            top: 285px;
             right: 26px;
             width: 230px;
             height: 230px;
@@ -146,23 +147,24 @@ const HeroSection = () => {
           /* ---------- SMALL CIRCLE (OVERLAP) ---------- */
           .placeholder-image {
             position: absolute;
+            top: 105px;
             bottom: -20px;
-            right: 180px;
-            width: 140px;
-            height: 140px;
+            right: 190px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             background: #5fa1b9; /* unchanged */
-            padding: 1.6rem;
+            
           }
 
           /* ---------- KERMEDIX ---------- */
           .kermedix-text {
-            margin-top: 18rem;
+            margin-top: 15.5rem;
             text-align: center;
             font-size: 2.8rem;
             font-weight: 900;
             letter-spacing: 0.08em;
-            color: rgba(255, 255, 255, 0.18); /* desktop faded watermark */
+            color: rgba(255, 255, 255, 0.2); 
           }
 
           /* ---------- STATS CARD ---------- */
@@ -195,7 +197,7 @@ const HeroSection = () => {
             background: linear-gradient(
               to bottom,
               transparent,
-              rgba(255, 255, 255, 0.35),
+              rgba(255, 255, 255, 0.3),
               transparent
             );
           }
@@ -224,14 +226,14 @@ const HeroSection = () => {
           }
 
           .cta-title-mobile {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 0.25em;
             color: rgba(255, 255, 255, 0.5);
           }
 
           .cta-subtitle-mobile {
-            font-size: 0.65rem;
-            letter-spacing: 0.18em;
+            font-size: 0.6rem;
+            letter-spacing: 0.7em;
             margin-top: 0.3rem;
             color: rgba(255, 255, 255, 0.85);
           }
@@ -282,7 +284,7 @@ const HeroSection = () => {
           display: flex;
           justify-content: center;
           width: 100%;
-          margin-top: 0.6rem;
+          margin-top: 0.1rem;
         }
 
         /* SVG sizing */
