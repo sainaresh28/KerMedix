@@ -746,7 +746,7 @@ const logout = () => {};
         </div>
 
         {/* Built with Love – Liquid Capsule */}
-        <div className="relative z-10 max-w-6xl mx-auto px-20 py-8 flex justify-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-50 py-8 flex justify-center">
           <div className="relative w-fit overflow-hidden rounded-full border border-white/20 shadow-xl">
 
             
