@@ -27,6 +27,14 @@ const logout = () => {};
 
   const { t } = useTranslation();
   const location = useLocation();
+  useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+}, [location.pathname]);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
@@ -846,5 +854,6 @@ const logout = () => {};
     </div>
   );
 };
+
 
 export default Layout;
