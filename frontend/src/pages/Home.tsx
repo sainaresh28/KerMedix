@@ -125,7 +125,7 @@ const Home = () => {
                       placeholder={placeholder}
                       className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
                                 text-gray-700 placeholder-gray-400
-                                focus:outline-none focus:ring-2 focus:ring-[#7B6EF6]/40
+                                focus:outline-none focus:ring-1 focus:ring-[#000000]
                                 transition"
                     />
                   ))}
@@ -135,7 +135,7 @@ const Home = () => {
                     placeholder="Your Message"
                     className="w-full px-5 py-4 rounded-xl border-2 border-[#090815]
                               text-gray-700 placeholder-gray-400 resize-none
-                              focus:outline-none focus:ring-2 focus:ring-[#7B6EF6]/40
+                              focus:outline-none focus:ring-1 focus:ring-[#000000]
                               transition"
                   />
 
@@ -201,7 +201,7 @@ const Home = () => {
                 digital health platform.
               </p>
 
-              <Link to="/register">
+              <Link to="login?role=migrant">
                 <Button
                   className="
                     px-8
