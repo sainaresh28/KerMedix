@@ -10,6 +10,7 @@ export const usePWAInstall = () => {
   useEffect(() => {
     const ua = window.navigator.userAgent.toLowerCase();
     setIsIOS(/iphone|ipad|ipod/.test(ua));
+
     setIsStandalone(
       window.matchMedia("(display-mode: standalone)").matches ||
       (window.navigator as any).standalone === true
@@ -22,8 +23,10 @@ export const usePWAInstall = () => {
     };
 
     window.addEventListener("beforeinstallprompt", handler);
-    return () =>
+
+    return () => {
       window.removeEventListener("beforeinstallprompt", handler);
+    };
   }, []);
 
   const installApp = async () => {
