@@ -716,47 +716,65 @@ const HeroSection = () => {
 {!isStandalone && (isInstallable || isIOS) && (
   <div className="fixed bottom-4 right-4 z-50">
     {/* INFO CARD */}
-    {showInstallInfo && (
-      <div
+{showInstallInfo && (
+  <div
+    className="
+      absolute bottom-16 right-0
+      w-64
+      bg-white text-gray-800
+      rounded-xl
+      shadow-2xl
+      p-4
+      text-sm
+    "
+  >
+    <div className="font-semibold mb-1">
+      {isIOS ? "Add to Home Screen" : "Go App Mode"}
+    </div>
+
+    <div className="text-xs text-gray-600 leading-relaxed mb-3">
+      {isIOS ? (
+        <>
+          Tap <strong>Share</strong> →{" "}
+          <strong>Add to Home Screen</strong> to use KerMedix like an app.
+        </>
+      ) : (
+        <>
+          Install KerMedix for a faster, fullscreen,
+          app-like experience with offline support.
+        </>
+      )}
+    </div>
+
+    {/* ACTION */}
+    {!isIOS && (
+      <button
+        onClick={installApp}
         className="
-          absolute bottom-16 right-0
-          w-64
-          bg-white text-gray-800
-          rounded-xl
-          shadow-2xl
-          p-4
-          text-sm
+          w-full
+          py-2
+          rounded-lg
+          bg-emerald-600
+          text-white
+          text-xs font-semibold
+          hover:bg-emerald-700
         "
       >
-        <div className="font-semibold mb-1">
-          {isIOS ? "Add to Home Screen" : "Go App Mode"}
-        </div>
-
-        <div className="text-xs text-gray-600 leading-relaxed">
-          {isIOS ? (
-            <>
-              Tap <strong>Share</strong> →{" "}
-              <strong>Add to Home Screen</strong> to use KerMedix like an app.
-            </>
-          ) : (
-            <>
-              Install KerMedix for a faster, fullscreen,
-              app-like experience with offline support.
-            </>
-          )}
-        </div>
-
-        {/* Arrow */}
-        <div
-          className="
-            absolute -bottom-2 right-6
-            h-4 w-4
-            bg-white
-            rotate-45
-          "
-        />
-      </div>
+        Install App
+      </button>
     )}
+
+    {/* Arrow */}
+    <div
+      className="
+        absolute -bottom-2 right-6
+        h-4 w-4
+        bg-white
+        rotate-45
+      "
+    />
+  </div>
+)}
 
     {/* FAB BUTTON */}
     <div
