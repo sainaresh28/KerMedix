@@ -7,6 +7,9 @@ import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 
 
+
+
+
 import healthWorkers from '@/assets/prognosis-icon-2803190_1280.png';
 import smartHealthcare from '@/assets/stethoscope-icon-2316460_1280.png';
 import sideVideo from '@/assets/1uEgB20NU24EH65gog.mp4';
@@ -535,47 +538,7 @@ const HeroSection = () => {
                 }}
               >
                 Experience the future of healthcare. Secure, unified, and citizen-centric digital health records for Kerala.
-              </p>
-
-<div 
-  className="flex flex-wrap items-center gap-4"
-  style={{
-    opacity: isLoaded ? 1 : 0,
-    transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
-    transition: 'all 0.8s ease-out 0.6s',
-  }}
->
-  {!isStandalone && (
-    <>
-      {isInstallable && (
-        <Button
-          onClick={installApp}
-          className="
-            h-12 px-6 rounded-xl
-            bg-gradient-to-r from-emerald-500 to-green-600
-            text-white font-semibold
-            shadow-lg hover:scale-[1.03] transition
-          "
-        >
-          <Download className="mr-2 h-4 w-4" />
-          Install KerMedix
-        </Button>
-      )}
-
-      {isIOS && (
-        <div className="flex items-center gap-2 text-xs text-white/70">
-          <Smartphone size={14} />
-          <span>
-            Install: Share → Add to Home Screen
-          </span>
-        </div>
-      )}
-    </>
-  )}
-</div>
-
-
-              
+              </p>              
             </div>
           </div>
         </div>
@@ -756,7 +719,7 @@ const HeroSection = () => {
       <div
         onClick={!isIOS ? installApp : undefined}
         className="
-          fixed bottom-4 left-1/2 -translate-x-1/2
+          fixed bottom-1 left-1/2 -translate-x-1/2
           z-50
           flex items-center gap-2
           bg-emerald-600 text-white
