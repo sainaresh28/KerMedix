@@ -733,7 +733,8 @@ const HeroSection = () => {
                   h-6 w-6
                   flex items-center justify-center
                   rounded-full
-                  text-gray-500
+                  font-bold
+                  text-[#046913]
                   hover:bg-gray-100
                   transition
                 "
@@ -808,4 +809,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
 
