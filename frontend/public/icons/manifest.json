@@ -1,0 +1,21 @@
+{
+  "name": "KerMedix",
+  "short_name": "KerMedix",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f3d2e",
+  "theme_color": "#0f3d2e",
+  "description": "Secure digital health records platform for Kerala",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
