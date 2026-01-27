@@ -3,6 +3,9 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Users, Building } from "lucide-react";
 import KeralaDistrictMap from "@/assets/keralam3.png";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef } from "react";
+
 
 const InteractiveMap = () => {
   const visibleElements = useScrollAnimation();
@@ -24,6 +27,26 @@ const InteractiveMap = () => {
     { name: "Kannur", workers: 2550, clinics: 43 },
     { name: "Kasaragod", workers: 1780, clinics: 29 },
   ];
+const mapRef = useRef<HTMLDivElement>(null);
+
+const { scrollYProgress } = useScroll({
+  target: mapRef,
+  offset: ["start end", "end start"],
+});
+
+
+  const topXRaw = useTransform(scrollYProgress, [0, 0.45], [-140, 0]);
+  const bottomXRaw = useTransform(scrollYProgress, [0, 0.45], [140, 0]);
+  const middleOpacityRaw = useTransform(scrollYProgress, [0.18, 0.45], [0, 1]);
+  const middleScaleRaw = useTransform(scrollYProgress, [0.18, 0.45], [0.96, 1]);
+
+  const springConfig = { stiffness: 65, damping: 22, mass: 1 };
+
+  const topX = useSpring(topXRaw, springConfig);
+  const bottomX = useSpring(bottomXRaw, springConfig);
+  const middleOpacity = useSpring(middleOpacityRaw, springConfig);
+  const middleScale = useSpring(middleScaleRaw, springConfig);
+
 
   return (
     <section
@@ -72,18 +95,40 @@ const InteractiveMap = () => {
                 "
               >
 
-              <img
+            <div ref={mapRef} className="relative w-full h-full">
+
+              {/* TOP – GREEN (LEFT → RIGHT) */}
+              <motion.img
                 src={KeralaDistrictMap}
-                alt="Kerala District Map"
-                className="
-                  w-full
-                  h-full
-                  object-contain
-                  transition-transform
-                  duration-500
-                  hover:scale-[1.02]
-                "
+                className="absolute inset-0 w-full h-full object-contain"
+                style={{
+                  clipPath: "polygon(0 0, 100% 0, 100% 32%, 0 32%)",
+                  x: topX,
+                }}
               />
+
+              {/* MIDDLE – BEIGE */}
+              <motion.img
+                src={KeralaDistrictMap}
+                className="absolute inset-0 w-full h-full object-contain"
+                style={{
+                  clipPath: "polygon(0 32%, 100% 32%, 100% 62%, 0 62%)",
+                  opacity: middleOpacity,
+                  scale: middleScale,
+                }}
+              />
+
+              {/* BOTTOM – RED (RIGHT → LEFT) */}
+              <motion.img
+                src={KeralaDistrictMap}
+                className="absolute inset-0 w-full h-full object-contain"
+                style={{
+                  clipPath: "polygon(0 62%, 100% 62%, 100% 100%, 0 100%)",
+                  x: bottomX,
+                }}
+              />
+            </div>
+
             </div>
           </div>
 
@@ -154,7 +199,6 @@ const InteractiveMap = () => {
                         text-[#F9EFE3]
                         hover:brightness-110
                         hover:scale-[1.01]
-                        hover:text-[#ff6200]
                         hover:shadow-[0_12px_30px_rgba(64,46,230,0.45)]
                         active:scale-[0.97]
                         ${
