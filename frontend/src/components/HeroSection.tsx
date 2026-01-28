@@ -366,7 +366,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
         /* Base wave */
         .exact-wave {
           fill: none;
-          stroke: rgba(255, 255, 255, 0.9);
+          stroke: rgba(245, 250, 255, 1);
           stroke-width: 1.8;
           stroke-linecap: round;
           stroke-linejoin: round;
@@ -417,24 +417,23 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
         @media (max-width: 600px) {
           .water-exact {
             height: 140px;
-          }
-
-          /* Mobile brightness falloff */
-          .w0 { opacity: 0.12; }
-          .w1 { opacity: 0.16; }
-          .w2 { opacity: 0.2; }
-          .w3 { opacity: 0.25; }
-          .w4 { opacity: 0.3; }
-          .w5 { opacity: 0.28; }
-          .w6 { opacity: 0.24; }
-          .w7 { opacity: 0.2; }
-          .w8 { opacity: 0.16; }
-          .w9 { opacity: 0.12; }
-          .w10 { opacity: 0.1; }
-          .w11 { opacity: 0.08; }
-          .w12 { opacity: 0.06; }
-          .w13 { opacity: 0.04; }
+          }       
+          .w0  { opacity: 0.28; }
+          .w1  { opacity: 0.34; }
+          .w2  { opacity: 0.40; }
+          .w3  { opacity: 0.46; }
+          .w4  { opacity: 0.52; }  
+          .w5  { opacity: 0.50; }
+          .w6  { opacity: 0.46; }
+          .w7  { opacity: 0.40; }
+          .w8  { opacity: 0.34; }
+          .w9  { opacity: 0.28; }
+          .w10 { opacity: 0.22; }
+          .w11 { opacity: 0.18; }
+          .w12 { opacity: 0.14; }
+          .w13 { opacity: 0.10; }
         }
+
       `}
       </style>
 
@@ -823,6 +822,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
       </div>
 
     </div>
+    
 
       {/* ================= SCROLL ZOOM IMAGE ================= */}
     <div
