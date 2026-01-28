@@ -4,7 +4,6 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Download, Smartphone } from "lucide-react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
-
 import healthWorkers from '@/assets/prognosis-icon-2803190_1280.png';
 import smartHealthcare from '@/assets/stethoscope-icon-2316460_1280.png';
 import sideVideo from '@/assets/1uEgB20NU24EH65gog.mp4';
@@ -16,16 +15,11 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isFlipped, setIsFlipped] = useState(false);
   const [showInstallInfo, setShowInstallInfo] = useState(false);
-
   const heroRef = useRef<HTMLElement>(null);
   const { isInstallable, isIOS, isStandalone, installApp } = usePWAInstall();
-
-
   const bottomImageRef = useRef<HTMLDivElement>(null);
   const [imageScale, setImageScale] = useState(1.3);
   const [isMobile, setIsMobile] = useState(false);
-
-
 
  
   useEffect(() => {
@@ -90,7 +84,6 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
 
 
   return (
-
     <section 
       ref={heroRef}
      className="relative min-h-[120vh] w-full overflow-hidden"
@@ -101,11 +94,8 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
     >
 
         {/* ================= MOBILE CSS ================= */}
-        <style>
+      <style>
         {`
-        /* =====================================================
-          HERO VISIBILITY
-        ===================================================== */
         .hero-main {
           display: block;
         }
@@ -124,9 +114,8 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
           }
         }
 
-        /* =====================================================
-          MOBILE HERO 
-        ===================================================== */
+        /* =================================MOBILE HERO=================================== */
+       
         @media (max-width: 900px) {
 
           /* ---------- TITLES ---------- */
@@ -152,11 +141,11 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
             font-weight: 900;
             line-height: 1;
             color: transparent;
-            -webkit-text-stroke: 2px rgba(232, 228, 214, 0.65); /* desktop HEALTH stroke */
+            -webkit-text-stroke: 2px rgba(232, 228, 214, 0.65); 
           }
 
           .title-records {
-            color: #e8e4d6; /* desktop RECORDS warm beige */
+            color: #e8e4d6; 
           }
 
           /* ---------- DESCRIPTION ---------- */
@@ -302,8 +291,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
         }
 
 /* ===============================  HERO  ECG ================================ */
-         
-      
+             
         .hero-ecg-line {
           position: absolute;
           left: 0;
@@ -355,12 +343,102 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
           }
         }
 
-        `}
-        </style>
+/* ======================================= WATER WAVES ========================================== */
 
+        .water-exact {
+          position: absolute;
+          bottom: -18px;
+          left: 0;
+          width: 100%;
+          height: 220px;
+          pointer-events: none;
+          z-index: 6;
+          overflow: hidden;
+        }
+
+        /* SVG motion */
+        .water-exact-svg {
+          width: 200%;
+          height: 100%;
+          animation: water-slide 16s linear infinite;
+        }
+
+        /* Base wave */
+        .exact-wave {
+          fill: none;
+          stroke: rgba(255, 255, 255, 0.9);
+          stroke-width: 1.8;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+
+        /* Desktop depth */
+        .w0 { opacity: 0.25; }
+        .w1 { opacity: 0.3; }
+        .w2 { opacity: 0.35; }
+        .w3 { opacity: 0.4; }
+        .w4 { opacity: 0.45; }
+        .w5 { opacity: 0.45; }
+        .w6 { opacity: 0.4; }
+        .w7 { opacity: 0.35; }
+        .w8 { opacity: 0.3; }
+        .w9 { opacity: 0.25; }
+
+        /* Horizontal flow */
+        @keyframes water-slide {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        /* =====================================================
+          MOBILE OPTIMIZATION (CRITICAL)
+        ===================================================== */
+
+        @media (max-width: 768px) {
+          .water-exact {
+            height: 150px;
+            bottom: -10px;
+          }
+
+          .water-exact-svg {
+            width: 220%;
+            animation-duration: 14s;
+          }
+
+          .exact-wave {
+            stroke-width: 1.4;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .water-exact {
+            height: 140px;
+          }
+
+          /* Mobile brightness falloff */
+          .w0 { opacity: 0.12; }
+          .w1 { opacity: 0.16; }
+          .w2 { opacity: 0.2; }
+          .w3 { opacity: 0.25; }
+          .w4 { opacity: 0.3; }
+          .w5 { opacity: 0.28; }
+          .w6 { opacity: 0.24; }
+          .w7 { opacity: 0.2; }
+          .w8 { opacity: 0.16; }
+          .w9 { opacity: 0.12; }
+          .w10 { opacity: 0.1; }
+          .w11 { opacity: 0.08; }
+          .w12 { opacity: 0.06; }
+          .w13 { opacity: 0.04; }
+        }
+      `}
+      </style>
 
    <div className="hero-main">
-
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex pb-[28vh]">
 
@@ -451,7 +529,6 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
                   />
                 </div>
 
-
                 {/* Flipping Image */}
               <div
                 className="relative"
@@ -497,9 +574,8 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
                 </div>
               </div>
               </div>   
-
               </div>
-              
+       
               <div className="flex items-end gap-4 lg:gap-8 flex-wrap">
                 <h1 
                   className="font-black tracking-[-0.04em]"
@@ -517,7 +593,6 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
                 >
                   RECORDS
                 </h1>
-                
                 
                 {/* KERMEDIX */}
                 <span 
@@ -561,10 +636,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
                     />
                   </svg>
                 </div>
-
                 </span>
-
-
               </div>
             </div>
 
@@ -635,7 +707,6 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
           ))}
         </div>
       </div>
-
 
           {/* Bottom Right Text */}
           <div className="text-right hidden sm:block">
@@ -754,28 +825,76 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
     </div>
 
       {/* ================= SCROLL ZOOM IMAGE ================= */}
-      <div
-        ref={bottomImageRef}
-        className={`
-          relative w-full overflow-hidden
-        ${isMobile ? "-mt-[10vh]" : "-mt-[20vh]"}
-        `}
+    <div
+      ref={bottomImageRef}
+      className={`relative w-full overflow-hidden ${
+        isMobile ? "-mt-[10vh]" : "-mt-[20vh]"
+      }`}
+      style={{ height: isMobile ? "60vh" : "120vh" }}
+    >
+      {/* IMAGE */}
+      <img
+        src={bottomImage}
+        alt="KerMedix Platform"
+        className="w-full h-full object-cover block"
         style={{
-          height: isMobile ? "60vh" : "120vh",
+          transform: `scale(${imageScale})`,
+          transformOrigin: isMobile ? "center center" : "center top",
+          transition: "transform 0.1s linear",
+          willChange: "transform",
         }}
+      />
+
+    {/* ================= CONNECTED WATER WAVES ================= */}
+    <div className="water-exact">
+      <svg
+        className="water-exact-svg"
+        viewBox="0 0 1200 240"
+        preserveAspectRatio="none"
       >
-        <img
-          src={bottomImage}
-          alt="KerMedix Platform"
-          className="w-full h-full object-cover"
-          style={{
-            transform: `scale(${imageScale})`,
-            transformOrigin: isMobile ? "center center" : "center top",
-            transition: "transform 0.1s linear",
-            willChange: "transform",
-          }}
-        />
-      </div>
+        {Array.from({ length: isMobile ? 14 : 10 }).map((_, i) => (
+          <path
+            key={i}
+            className={`exact-wave w${i}`}
+            d={
+              isMobile
+                ? `
+                  M0 ${30 + i * 14}
+                  C 60 ${20 + i * 14},
+                    120 ${40 + i * 14},
+                    180 ${30 + i * 14}
+                  S 300 ${20 + i * 14},
+                    360 ${30 + i * 14}
+                  S 480 ${40 + i * 14},
+                    540 ${30 + i * 14}
+                  S 660 ${20 + i * 14},
+                    720 ${30 + i * 14}
+                  S 840 ${40 + i * 14},
+                    900 ${30 + i * 14}
+                  S 1020 ${20 + i * 14},
+                    1080 ${30 + i * 14}
+                  S 1140 ${40 + i * 14},
+                    1200 ${30 + i * 14}
+                `
+                : `
+                  M0 ${30 + i * 18}
+                  C 100 ${10 + i * 18},
+                    200 ${50 + i * 18},
+                    300 ${30 + i * 18}
+                  S 500 ${10 + i * 18},
+                    600 ${30 + i * 18}
+                  S 800 ${50 + i * 18},
+                    900 ${30 + i * 18}
+                  S 1100 ${10 + i * 18},
+                    1200 ${30 + i * 18}
+                `
+            }
+          />
+        ))}
+      </svg>
+    </div>
+    </div>
+
 
       {/* ================= PWA Install-ware button HOVER ================= */}
       {!isStandalone && (isInstallable || isIOS) && (
